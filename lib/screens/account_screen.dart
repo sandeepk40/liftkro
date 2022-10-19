@@ -229,8 +229,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '',
-                                    // '${snapshot.data?['seller_type'] ?? ""}',
+                                    // '',
+                                    '${snapshot.data?['seller_type'] ?? ""}',
                                     style: const TextStyle(
                                       fontSize: 14,
                                     ),
