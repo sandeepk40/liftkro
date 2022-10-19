@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "235834942896",
+    "project_id": "hanger-71739",
+    "storage_bucket": "hanger-71739.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235834942896:android:4e89c92350c2602da3a275",
+        "android_client_info": {
+          "package_name": "com.example.haggle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235834942896-15cfimhi23niho56lhng7uohlrdcu6du.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.haggle",
+            "certificate_hash": "475946e802b21ad4e63954e07e33543485a45a1e"
+          }
+        },
+        {
+          "client_id": "235834942896-906mgqqt4m9j6kgj4bgdsodde215ai55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNf81qkxZ75wPCApeCaUPiOnMzDRXi0L8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235834942896-906mgqqt4m9j6kgj4bgdsodde215ai55.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
