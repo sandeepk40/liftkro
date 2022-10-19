@@ -42,7 +42,7 @@ class _MainScreenState extends State<MainScreen> {
       onRefresh: ()async{
         Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const MainScreen()));
+            MaterialPageRoute(builder: (context) => const MainScreen(),),);
       },
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -58,6 +58,7 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.black,
           child: const CircleAvatar(
               backgroundColor: Colors.white,
+              radius: 25,
               child: Text(
                 'SELL',
                 style: TextStyle(
@@ -170,8 +171,8 @@ class _MainScreenState extends State<MainScreen> {
                         children: [
                           Icon(
                             _index == 2
-                                ? CupertinoIcons.heart_fill
-                                : CupertinoIcons.heart,
+                               ? Icons.store
+                                : Icons.store_outlined,
                             color: Colors.black,
                             size: 28,
                           ),

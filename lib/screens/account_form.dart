@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -12,6 +15,7 @@ import 'package:haggle/screens/location_screen.dart';
 import 'package:haggle/screens/login_screen.dart';
 import 'package:haggle/screens/main_screen.dart';
 import 'package:haggle/services/firebase_services.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -28,6 +32,7 @@ class _AccountFormState extends State<AccountForm> {
   final _formKey = GlobalKey<FormState>();
   bool _loading = false;
   bool isEnabled = false;
+  var imageFile;
 
   final FirebaseService _service = FirebaseService();
   final _nameController = TextEditingController();
@@ -271,16 +276,15 @@ class _AccountFormState extends State<AccountForm> {
                           children: [
                             CircleAvatar(
                               radius: 70,
+                               backgroundImage: snapshot.data?['profile'] != null
+                                  ? NetworkImage(snapshot.data?['profile'])
+                                  : const NetworkImage('url'),
                               backgroundColor: Colors.black,
-                              child: CircleAvatar(
-                                radius: 69,
-                                backgroundColor: Colors.grey[300],
-                                child: const Icon(
-                                  CupertinoIcons.person_alt,
-                                  color: Colors.grey,
-                                  size: 50,
-                                ),
-                              ),
+                              // child: const Icon(
+                              //   CupertinoIcons.person_alt,
+                              //   color: Colors.grey,
+                              //   size: 50,
+                              // ),
                             ),
                             Positioned(
                               bottom: 2,
@@ -291,17 +295,22 @@ class _AccountFormState extends State<AccountForm> {
                                 child: CircleAvatar(
                                   radius: 18,
                                   backgroundColor: Colors.grey[300],
-                                  child: const Icon(
-                                    Icons.camera_enhance,
+                                  child: 
+                                  IconButton(
+                                    onPressed: () {
+                                      getImage(true);
+                                    },
+                                    icon: const Icon(Icons.camera_enhance,
+                                        size: 15),
                                     color: Colors.black,
-                                    size: 15,
-                                  ),
+                                  )
                                 ),
                               ),
                             )
                           ],
                         ),
                       ),
+                      const SizedBox(height: 15,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
@@ -315,7 +324,7 @@ class _AccountFormState extends State<AccountForm> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
                       TextFormField(
                         enabled: isEnabled,
                         controller: _nameController,
@@ -355,7 +364,7 @@ class _AccountFormState extends State<AccountForm> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
                       TextFormField(
                         controller: _phoneController,
                         enabled: isEnabled,
@@ -397,7 +406,7 @@ class _AccountFormState extends State<AccountForm> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
                       TextFormField(
                         controller: _emailController,
                         enabled: isEnabled,
@@ -442,7 +451,7 @@ class _AccountFormState extends State<AccountForm> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
                       // Row(
                       //   children: [
                       //     Expanded(
@@ -521,7 +530,7 @@ class _AccountFormState extends State<AccountForm> {
                       //     ),
                       //   ],
                       // ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
                       TextFormField(
                         controller: _addressController,
                         enabled: isEnabled,
@@ -566,7 +575,7 @@ class _AccountFormState extends State<AccountForm> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
                       TextFormField(
                         controller: _shopNameController,
                         enabled: isEnabled,
@@ -606,7 +615,7 @@ class _AccountFormState extends State<AccountForm> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
                       TextFormField(
                         controller: _aboutController,
                         enabled: isEnabled,
@@ -646,10 +655,8 @@ class _AccountFormState extends State<AccountForm> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 15,),
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      const SizedBox(height: 15,),
+                      
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -771,6 +778,74 @@ class _AccountFormState extends State<AccountForm> {
         break;
     }
   }
+ Future getImage(bool isgallery) async {
+    PickedFile? galleryFile;
+    bool isLoading = false;
+    if (isgallery) {
+      try {
+        galleryFile = await ImagePicker().getImage(
+          source: ImageSource.gallery,
+        );
 
+        if (galleryFile != null) {
+          try {
+            Widget okButton = TextButton(
+              child: const Text(
+                "Upload",
+                style: TextStyle(color: Colors.green),
+              ),
+              onPressed: () async {
+                File file = File(galleryFile!.path);
+                String imageName =
+                    'profileImage/${DateTime.now().microsecondsSinceEpoch}';
+                String downloadUrl;
+                await FirebaseStorage.instance.ref(imageName).putFile(file);
+                downloadUrl = await FirebaseStorage.instance
+                    .ref(imageName)
+                    .getDownloadURL();
+                _service.uploadProfile(
+                    downloadUrl, _service.user!.uid, context);
+                Navigator.of(context).pop();
+              },
+            );
+            Widget cacelButton = TextButton(
+              child: const Text(
+                "Cancel",
+                style: TextStyle(color: Colors.red),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            );
+            AlertDialog alert = AlertDialog(
+              title: const Text("Upload Profile"),
+              content: Container(
+                  height: 200,
+                  width: 300,
+                  child: Image.file(
+                    File(galleryFile.path),
+                    fit: BoxFit.cover,
+                  )),
+              actions: [
+                cacelButton,
+                okButton,
+              ],
+            );
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return alert;
+              },
+            );
+            setState(() {
+              imageFile = new File(galleryFile!.path);
+            });
+          } finally {}
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
 }
 

@@ -54,45 +54,60 @@ class _SellerDetailsState extends State<SellerDetails> {
     super.initState();
   }
 
-  getSellerRating(){
+  getSellerRating() {
     var excellent = 0;
     var veryGood = 0;
     var good = 0;
     var average = 0;
     var poor = 0;
-    for(var i=0; i < data1[0]['ratting'].length ; i++){
+    for (var i = 0; i < data1[0]['ratting'].length; i++) {
       // (5*252 + 4*124 + 3*40 + 2*29 + 1*33) / (252+124+40+29+33) = 4.11 and change
-      if(data1[0]['ratting'][i]['rating'] >= 4){
+      if (data1[0]['ratting'][i]['rating'] >= 4) {
         setState(() {
           excellent++;
         });
         print('excellentindex: $excellent');
-      }else if(data1[0]['ratting'][i]['rating'] <= 4 && 3 <= data1[0]['ratting'][i]['rating']){
+      } else if (data1[0]['ratting'][i]['rating'] <= 4 &&
+          3 <= data1[0]['ratting'][i]['rating']) {
         setState(() {
           veryGood++;
         });
         print('verygood: $veryGood');
-      }else if(data1[0]['ratting'][i]['rating'] <= 3 && 2 <= data1[0]['ratting'][i]['rating']){
+      } else if (data1[0]['ratting'][i]['rating'] <= 3 &&
+          2 <= data1[0]['ratting'][i]['rating']) {
         setState(() {
           good++;
         });
         print('good: $good');
-      }else if(data1[0]['ratting'][i]['rating'] <= 1 && 0 < data1[0]['ratting'][i]['rating']){
+      } else if (data1[0]['ratting'][i]['rating'] <= 1 &&
+          0 < data1[0]['ratting'][i]['rating']) {
         setState(() {
           poor++;
         });
         print('poor: $poor ${data1[0]['ratting'][i]['rating']}');
-
       }
     }
-    var reviewsPercentage = ['$excellent%', '$veryGood%', '$good%', '$average%', '$poor%'];
-    List<double> ratingList = [excellent/5, veryGood/5, good/5, average/5, poor/5];
-    var multiRatings = excellent*5+veryGood*4+good*3+average*2+poor*1;
-    var addAllRtings = excellent+veryGood+good+average+poor;
-    getaverageRtings = multiRatings/addAllRtings;
+    var reviewsPercentage = [
+      '$excellent%',
+      '$veryGood%',
+      '$good%',
+      '$average%',
+      '$poor%'
+    ];
+    List<double> ratingList = [
+      excellent / 5,
+      veryGood / 5,
+      good / 5,
+      average / 5,
+      poor / 5
+    ];
+    var multiRatings =
+        excellent * 5 + veryGood * 4 + good * 3 + average * 2 + poor * 1;
+    var addAllRtings = excellent + veryGood + good + average + poor;
+    getaverageRtings = multiRatings / addAllRtings;
     print('datat $reviewsPercentage $ratingList $getaverageRtings');
-
   }
+
   _mapLauncher(location) async {
     final availableMaps = await launcher.MapLauncher.installedMaps;
 
@@ -111,630 +126,688 @@ class _SellerDetailsState extends State<SellerDetails> {
     var data = _productProvider.productData;
 
     GeoPoint _location = _productProvider.sellerDetails['location'];
-    return data1.isNotEmpty ? DefaultTabController(
-      length: 2,
-      initialIndex: 0,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromRGBO(238, 242, 246,170),
-          elevation: 0,
-          iconTheme: const IconThemeData(
-            color: Colors.black,
-          ),
-          title: const Text(
-            'Seller Details',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          bottom: const TabBar(
-            indicatorColor: Colors.black,
-            unselectedLabelStyle: TextStyle(
-              fontWeight: FontWeight.normal,
-            ),
-            labelStyle: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-            indicatorWeight: 6,
-            tabs: [
-              Tab(
-                child: Text(
-                  'Seller Profile',
+    return data1.isNotEmpty
+        ? DefaultTabController(
+            length: 2,
+            initialIndex: 0,
+            child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: const Color.fromRGBO(238, 242, 246, 170),
+                elevation: 0,
+                iconTheme: const IconThemeData(
+                  color: Colors.black,
+                ),
+                title: const Text(
+                  'Seller Details',
                   style: TextStyle(
-                      color: Colors.black
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-              Tab(child: Text(
-                'Seller Products',
-                style: TextStyle(
-                    color: Colors.black
+                bottom: const TabBar(
+                  indicatorColor: Colors.black,
+                  unselectedLabelStyle: TextStyle(
+                    fontWeight: FontWeight.normal,
+                  ),
+                  labelStyle: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  indicatorWeight: 6,
+                  tabs: [
+                    Tab(
+                      child: Text(
+                        'Seller Profile',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    Tab(
+                      child: Text(
+                        'Seller Products',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              ),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              body: TabBarView(
                 children: [
-                  const SizedBox(height: 30),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        elevation: 20,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 30),
-                          child: Column(
-                            children: [
-                              Center(
-                                child: Stack(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 50,
-                                      backgroundColor: Colors.black,
-                                      backgroundImage: data1[0]['profile'] != null ? NetworkImage(data1[0]['profile']) : NetworkImage('url'),
-                                      // child:  snapshot.data?['profile'] != null ? Image.network(snapshot.data?['profile'],fit: BoxFit.f,):
-                                      // Icon(
-                                      //   CupertinoIcons.person_alt,
-                                      //   color: Colors.grey,
-                                      //   size: 50,
-                                      // )
-                                      // : Image.file(imageFile,fit: BoxFit.cover,),
-                                    ),
-
-                                    // Positioned(
-                                    //   bottom: 2,
-                                    //   right: 5,
-                                    //   child: CircleAvatar(
-                                    //     radius: 20,
-                                    //     backgroundColor: Colors.white,
-                                    //     child: CircleAvatar(
-                                    //       radius: 18,
-                                    //       backgroundColor: Colors.grey[300],
-                                    //       child: const Icon(
-                                    //         Icons.camera_enhance,
-                                    //         color: Colors.black,
-                                    //         size: 15,
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 18,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Lakshay Meena',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Wholesaler',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
-                                child: IntrinsicHeight(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      InkWell(
-                                        onTap:(){
-                                          showAlertDialog(context);
-                                        },
-                                        child: Container(
-                                          width: 50,
-                                          decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              border: Border.all(
-                                                  color: Colors.green),
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  15)),
-                                          child: Padding(
-                                            padding:
-                                            const EdgeInsets.all(
-                                                3.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceEvenly,
-                                              children: [
-                                                Text(
-                                                  "${getaverageRtings.toString() != 'NaN' ? getaverageRtings.toStringAsFixed(1) :'0'}",
-                                                  style: TextStyle(
-                                                      color:
-                                                      Colors.white),
-                                                ),
-                                                Icon(
-                                                  Icons.star,
-                                                  size: 17,
-                                                  color: Colors.white,
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-
-                                      // Column(
-                                      //   children: const [
-                                      //     Text(
-                                      //       '4.8',
-                                      //       style: TextStyle(
-                                      //           fontSize: 20,
-                                      //           fontWeight: FontWeight.bold),
-                                      //     ),
-                                      //     SizedBox(
-                                      //       height: 5,
-                                      //     ),
-                                      //     Text(
-                                      //       'Rating',
-                                      //       style: TextStyle(
-                                      //           fontSize: 14,
-                                      //           fontWeight: FontWeight.bold),
-                                      //     ),
-                                      //   ],
-                                      // ),
-                                      const VerticalDivider(
-                                        indent: 12,
-                                        endIndent: 12,
-                                        color: Colors.black54,
-                                        thickness: 2,
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            '${uploadedProduct.length.toString()}',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            'Uploads',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                      const VerticalDivider(
-                                        indent: 12,
-                                        endIndent: 12,
-                                        color: Colors.black54,
-                                        thickness: 2,
-                                      ),
-                                      Column(
-                                        children:  [
-                                          Text(
-                                            '10',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            'Favourites',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20, right: 20, top: 20, bottom: 30),
-                                child: Row(
-                                  children: const [
-                                    Expanded(
-                                      child: Text(
-                                        'Wholesaler, only deals with jeansand shirts for all types',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Padding(
-                  //   padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
-                  //   child: Row(
-                  //     children: const [
-                  //       Text(
-                  //         'About',
-                  //         style: TextStyle(
-                  //             fontSize: 20, fontWeight: FontWeight.w900),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // Padding(
-                  //   padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
-                  //   child: Row(
-                  //     children: const [
-                  //       Text(
-                  //         'Details',
-                  //         style: TextStyle(
-                  //             fontSize: 20, fontWeight: FontWeight.w900),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-
-                    ),
+                  SingleChildScrollView(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 30),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Phone:',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              '${data1[0]['contactDetails']['phone'] ?? ""}',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children:  [
-                            Text(
-                              'Shop Name:',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              '${data1[0]['shop_name'] ?? ""}',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Email:',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Container(
-                                width: 190,
-                                child: Text(
-                                  // 'mail',
-                                  '${data1[0]['email'] ?? ""}',
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
-                                  maxLines: 2,
+                              elevation: 10,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 30),
+                                child: Column(
+                                  children: [
+                                    Center(
+                                      child: Stack(
+                                        children: [
+                                          CircleAvatar(
+                                            radius: 50,
+                                            backgroundColor: Colors.black,
+                                            backgroundImage:
+                                                data1[0]['profile'] != null
+                                                    ? NetworkImage(
+                                                        data1[0]['profile'])
+                                                    : const NetworkImage('url'),
+                                            // child:  snapshot.data?['profile'] != null ? Image.network(snapshot.data?['profile'],fit: BoxFit.f,):
+                                            // Icon(
+                                            //   CupertinoIcons.person_alt,
+                                            //   color: Colors.grey,
+                                            //   size: 50,
+                                            // )
+                                            // : Image.file(imageFile,fit: BoxFit.cover,),
+                                          ),
+
+                                          // Positioned(
+                                          //   bottom: 2,
+                                          //   right: 5,
+                                          //   child: CircleAvatar(
+                                          //     radius: 20,
+                                          //     backgroundColor: Colors.white,
+                                          //     child: CircleAvatar(
+                                          //       radius: 18,
+                                          //       backgroundColor: Colors.grey[300],
+                                          //       child: const Icon(
+                                          //         Icons.camera_enhance,
+                                          //         color: Colors.black,
+                                          //         size: 15,
+                                          //       ),
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 18,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          '${data1[0]['name'] ?? ""}',
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          '${data1[0]['seller_type'] ?? ""}',
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    // const SizedBox(
+                                    //   height: 10,
+                                    // ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 30, 20, 20),
+                                      child: IntrinsicHeight(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            // InkWell(
+                                            //   onTap:(){
+                                            //     showAlertDialog(context);
+                                            //   },
+                                            //   child: Container(
+                                            //     width: 50,
+                                            //     decoration: BoxDecoration(
+                                            //         color: Colors.green,
+                                            //         border: Border.all(
+                                            //             color: Colors.green),
+                                            //         borderRadius:
+                                            //         BorderRadius.circular(
+                                            //             15)),
+                                            //     child: Padding(
+                                            //       padding:
+                                            //       const EdgeInsets.all(
+                                            //           3.0),
+                                            //       child: Row(
+                                            //         mainAxisAlignment:
+                                            //         MainAxisAlignment
+                                            //             .spaceEvenly,
+                                            //         children: [
+                                            //           Text(
+                                            //             "${getaverageRtings.toString() != 'NaN' ? getaverageRtings.toStringAsFixed(1) :'0'}",
+                                            //             style: TextStyle(
+                                            //                 color:
+                                            //                 Colors.white),
+                                            //           ),
+                                            //           Icon(
+                                            //             Icons.star,
+                                            //             size: 17,
+                                            //             color: Colors.white,
+                                            //           )
+                                            //         ],
+                                            //       ),
+                                            //     ),
+                                            //   ),
+                                            // ),
+
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  "${getaverageRtings.toString() != 'NaN' ? getaverageRtings.toStringAsFixed(1) : '0'}",
+                                                  style: const TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                const Text(
+                                                  'Rating',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                            const VerticalDivider(
+                                              indent: 12,
+                                              endIndent: 12,
+                                              color: Colors.black54,
+                                              thickness: 2,
+                                            ),
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  '${uploadedProduct.length.toString()}',
+                                                  style: const TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                const Text(
+                                                  'Uploads',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                            const VerticalDivider(
+                                              indent: 12,
+                                              endIndent: 12,
+                                              color: Colors.black54,
+                                              thickness: 2,
+                                            ),
+                                            Column(
+                                              children: const [
+                                                Text(
+                                                  '10',
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  'Favourites',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 20,
+                                          right: 20,
+                                          top: 20,
+                                          bottom: 30),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              '${data1[0]['about'] ?? ""}',
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Address:',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                // 'add',
-                                '${data1[0]['address'] ?? ""}',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
+                        // Padding(
+                        //   padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
+                        //   child: Row(
+                        //     children: const [
+                        //       Text(
+                        //         'About',
+                        //         style: TextStyle(
+                        //             fontSize: 20, fontWeight: FontWeight.w900),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
+                        //   child: Row(
+                        //     children: const [
+                        //       Text(
+                        //         'Details',
+                        //         style: TextStyle(
+                        //             fontSize: 20, fontWeight: FontWeight.w900),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Text(
+                                      'Phone',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      width: 90,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            ':  ${data1[0]['contactDetails']['phone'] ?? ""}',
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Shop Name',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      width: 53,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            ':  ${data1[0]['shop_name'] ?? ""}',
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Email',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      width: 95,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            ':  ${data1[0]['email'] ?? ""}',
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                            maxLines: 2,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  // crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Text(
+                                      'Address',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      width: 75.5,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            // 'add',
+                                            ':  ${data1[0]['address'] ?? ""}',
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
+
+                        // Container(
+                        //   width: MediaQuery.of(context).size.width,
+                        //   decoration: const BoxDecoration(
+                        //     borderRadius: BorderRadius.all(
+                        //       Radius.circular(10.0),
+                        //     ),
+                        //
+                        //   ),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.only(
+                        //         left: 20, right: 20, top: 10, bottom: 20),
+                        //     child: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.start,
+                        //       children: [
+                        //         Column(
+                        //           crossAxisAlignment: CrossAxisAlignment.start,
+                        //           mainAxisAlignment: MainAxisAlignment.start,
+                        //           children: [
+                        //             const SizedBox(height: 30),
+                        //             Row(
+                        //
+                        //               children: const [
+                        //                 Text(
+                        //                   'Phone:',
+                        //                   style: TextStyle(
+                        //                       fontSize: 16,
+                        //                       color: Colors.black,
+                        //                       fontWeight: FontWeight.bold),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //             const SizedBox(height: 20),
+                        //             Row(
+                        //
+                        //               children: const [
+                        //                 Text(
+                        //                   'Shop Name:',
+                        //                   style: TextStyle(
+                        //                       fontSize: 16,
+                        //                       color: Colors.black,
+                        //                       fontWeight: FontWeight.bold),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //             const SizedBox(height: 20),
+                        //             Row(
+                        //
+                        //               children: const [
+                        //                 Text(
+                        //                   'Email:',
+                        //                   style: TextStyle(
+                        //                       fontSize: 16,
+                        //                       color: Colors.black,
+                        //                       fontWeight: FontWeight.bold),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //             const SizedBox(height: 20),
+                        //             Row(
+                        //
+                        //               children: const [
+                        //                 Text(
+                        //                   'Address:',
+                        //                   style: TextStyle(
+                        //                       fontSize: 16,
+                        //                       color: Colors.black,
+                        //                       fontWeight: FontWeight.bold),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //           ],
+                        //         ),
+                        //         const SizedBox(width: 20),
+                        //         Column(
+                        //           crossAxisAlignment: CrossAxisAlignment.start,
+                        //           mainAxisAlignment: MainAxisAlignment.start,
+                        //           children: [
+                        //             const SizedBox(height: 30),
+                        //             Row(
+                        //
+                        //               children: const [
+                        //                 Text(
+                        //                   '7838911825',
+                        //                   style: TextStyle(
+                        //                       fontSize: 16,
+                        //                       color: Colors.black,
+                        //                       ),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //             const SizedBox(height: 20),
+                        //             Row(
+                        //
+                        //               children: const [
+                        //                 Text(
+                        //                   'LM Garments',
+                        //                   style: TextStyle(
+                        //                       fontSize: 16,
+                        //                       color: Colors.black,
+                        //                       ),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //             const SizedBox(height: 20),
+                        //             Row(
+                        //
+                        //               children: const [
+                        //                 Text(
+                        //                   'lakshaymeena171@gmail.com',
+                        //                   style: TextStyle(
+                        //                       fontSize: 16,
+                        //                       color: Colors.black,
+                        //                       ),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //             const SizedBox(height: 20),
+                        //             Row(
+                        //
+                        //               children: const [
+                        //                 Text(
+                        //                   'South delhi ',
+                        //                   style: TextStyle(
+                        //                       fontSize: 16,
+                        //                       color: Colors.black,
+                        //                       ),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.white,
+                    child: FutureBuilder<QuerySnapshot>(
+                      future: _service.products
+                          .where('sellerUid', isEqualTo: data['sellerUid'])
+                          .orderBy('postedAt')
+                          .get(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return const Text('Something went wrong');
+                        }
 
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width,
-                  //   decoration: const BoxDecoration(
-                  //     borderRadius: BorderRadius.all(
-                  //       Radius.circular(10.0),
-                  //     ),
-                  //
-                  //   ),
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.only(
-                  //         left: 20, right: 20, top: 10, bottom: 20),
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.start,
-                  //       children: [
-                  //         Column(
-                  //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //           mainAxisAlignment: MainAxisAlignment.start,
-                  //           children: [
-                  //             const SizedBox(height: 30),
-                  //             Row(
-                  //
-                  //               children: const [
-                  //                 Text(
-                  //                   'Phone:',
-                  //                   style: TextStyle(
-                  //                       fontSize: 16,
-                  //                       color: Colors.black,
-                  //                       fontWeight: FontWeight.bold),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //             const SizedBox(height: 20),
-                  //             Row(
-                  //
-                  //               children: const [
-                  //                 Text(
-                  //                   'Shop Name:',
-                  //                   style: TextStyle(
-                  //                       fontSize: 16,
-                  //                       color: Colors.black,
-                  //                       fontWeight: FontWeight.bold),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //             const SizedBox(height: 20),
-                  //             Row(
-                  //
-                  //               children: const [
-                  //                 Text(
-                  //                   'Email:',
-                  //                   style: TextStyle(
-                  //                       fontSize: 16,
-                  //                       color: Colors.black,
-                  //                       fontWeight: FontWeight.bold),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //             const SizedBox(height: 20),
-                  //             Row(
-                  //
-                  //               children: const [
-                  //                 Text(
-                  //                   'Address:',
-                  //                   style: TextStyle(
-                  //                       fontSize: 16,
-                  //                       color: Colors.black,
-                  //                       fontWeight: FontWeight.bold),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //           ],
-                  //         ),
-                  //         const SizedBox(width: 20),
-                  //         Column(
-                  //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //           mainAxisAlignment: MainAxisAlignment.start,
-                  //           children: [
-                  //             const SizedBox(height: 30),
-                  //             Row(
-                  //
-                  //               children: const [
-                  //                 Text(
-                  //                   '7838911825',
-                  //                   style: TextStyle(
-                  //                       fontSize: 16,
-                  //                       color: Colors.black,
-                  //                       ),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //             const SizedBox(height: 20),
-                  //             Row(
-                  //
-                  //               children: const [
-                  //                 Text(
-                  //                   'LM Garments',
-                  //                   style: TextStyle(
-                  //                       fontSize: 16,
-                  //                       color: Colors.black,
-                  //                       ),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //             const SizedBox(height: 20),
-                  //             Row(
-                  //
-                  //               children: const [
-                  //                 Text(
-                  //                   'lakshaymeena171@gmail.com',
-                  //                   style: TextStyle(
-                  //                       fontSize: 16,
-                  //                       color: Colors.black,
-                  //                       ),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //             const SizedBox(height: 20),
-                  //             Row(
-                  //
-                  //               children: const [
-                  //                 Text(
-                  //                   'South delhi ',
-                  //                   style: TextStyle(
-                  //                       fontSize: 16,
-                  //                       color: Colors.black,
-                  //                       ),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Padding(
+                            padding: EdgeInsets.only(left: 140, right: 140),
+                            child: Center(
+                              child: LinearProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.black),
+                                backgroundColor: Colors.white,
+                              ),
+                            ),
+                          );
+                        }
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 250,
+                                  childAspectRatio: 2 / 3.8,
+                                  crossAxisSpacing: 1,
+                                  mainAxisSpacing: 0,
+                                ),
+                                itemCount: snapshot.data!.size,
+                                itemBuilder: (BuildContext context, int i) {
+                                  var data = snapshot.data!.docs[i];
+                                  var _price = int.parse(data['price']);
+                                  String _formattedPrice =
+                                      '₹ ${_format.format(_price)}';
+
+                                  return ProductCard(
+                                      data: data,
+                                      formattedPrice: _formattedPrice);
+                                },
+                              ),
+                            ),
+                            // Expanded(child: child)
+                          ],
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                child: FutureBuilder<QuerySnapshot>(
-                  future: _service.products
-                      .where('sellerUid', isEqualTo: data['sellerUid'])
-                      .orderBy('postedAt')
-                      .get(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return const Text('Something went wrong');
-                    }
-
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Padding(
-                        padding: EdgeInsets.only(left: 140, right: 140),
-                        child: Center(
-                          child: LinearProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.black),
-                            backgroundColor: Colors.white,
-                          ),
-                        ),
-                      );
-                    }
-
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: GridView.builder(
-                            gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              childAspectRatio: 2 / 3.6,
-                              crossAxisSpacing: 8,
-                              mainAxisSpacing: 10,
-                            ),
-                            itemCount: snapshot.data!.size,
-                            itemBuilder: (BuildContext context, int i) {
-                              var data = snapshot.data!.docs[i];
-                              var _price = int.parse(data['price']);
-                              String _formattedPrice =
-                                  '₹ ${_format.format(_price)}';
-
-                              return ProductCard(
-                                  data: data, formattedPrice: _formattedPrice);
-                            },
-                          ),
-                        ),
-                        // Expanded(child: child)
-                      ],
-                    );
-                  },
-                ),
+          )
+        : Container(
+            color: Colors.white,
+            child: const Center(
+              child: CircularProgressIndicator(
+                color: Colors.black,
               ),
-            ),
-          ],
-        ),
-      ),
-    ) : Container(
-        color: Colors.white,
-        child: Center(child: CircularProgressIndicator(color: Colors.orange,),));
+            ));
   }
+
   showAlertDialog(BuildContext context) {
     var reviewCount;
     var reviewEditTextController = TextEditingController();
@@ -743,8 +816,7 @@ class _SellerDetailsState extends State<SellerDetails> {
         builder: (BuildContext context) {
           return AlertDialog(
             shape: RoundedRectangleBorder(
-                borderRadius:
-                BorderRadius.circular(20.0)), //this right here
+                borderRadius: BorderRadius.circular(20.0)), //this right here
             content: Container(
               height: 30,
               child: RatingBar.builder(
@@ -756,10 +828,10 @@ class _SellerDetailsState extends State<SellerDetails> {
                 // itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
                 itemBuilder: (context, _) => Container(
                   width: 7,
-                  child: Icon(
+                  child: const Icon(
                     Icons.star,
                     size: 7,
-                    color: Colors.orange,
+                    color: Colors.black,
                   ),
                 ),
                 onRatingUpdate: (rating) {
@@ -776,7 +848,7 @@ class _SellerDetailsState extends State<SellerDetails> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(
+                child: const Text(
                   "Cancle",
                   style: TextStyle(color: Colors.red, fontSize: 16),
                 ),
@@ -787,19 +859,23 @@ class _SellerDetailsState extends State<SellerDetails> {
                   // _service.getUserData().then((value) => {
                   //   setState(() {
                   // ,sellereId :
-                  _service.updateReviewForSeller(sellerId: data1[0]['uid'],userName: _service.user!.uid,previous: data1[0]['ratting'] != [] ? data1[0]['ratting']:'',ratingCount:reviewCount,context:context);
+                  _service.updateReviewForSeller(
+                      sellerId: data1[0]['uid'],
+                      userName: _service.user!.uid,
+                      previous:
+                          data1[0]['ratting'] != [] ? data1[0]['ratting'] : '',
+                      ratingCount: reviewCount,
+                      context: context);
                   // }),
                   // });
                   // data = _productProvider.productData;
                   Navigator.of(context).pop();
-
                 },
-                child: Text(
+                child: const Text(
                   "Submit",
-                  style: TextStyle(color: Colors.green,fontSize: 16),
+                  style: TextStyle(color: Colors.green, fontSize: 16),
                 ),
               ),
-
             ],
           );
         });
@@ -922,5 +998,4 @@ class _SellerDetailsState extends State<SellerDetails> {
     //   },
     // );
   }
-
 }

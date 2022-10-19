@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.white,
           resizeToAvoidBottomInset: false,
           appBar: const PreferredSize(
-            preferredSize: Size.fromHeight(130),
+            preferredSize: Size.fromHeight(56),
             child: SafeArea(
               child: CustomAppBar(),
             ),
@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   color: Colors.white,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
+                    padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
                     child: Column(
                       children: const [
                         CarouselImages(),

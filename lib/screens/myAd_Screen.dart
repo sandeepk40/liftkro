@@ -69,7 +69,7 @@ class MyAddScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               color: Color.fromRGBO(238, 242, 246, 170),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                 child: FutureBuilder<QuerySnapshot>(
                   future: _service.products
                       .where('sellerUid', isEqualTo: _service.user!.uid)
@@ -144,10 +144,10 @@ class MyAddScreen extends StatelessWidget {
                           child: GridView.builder(
                             gridDelegate:
                             const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              childAspectRatio: 2 / 3.6,
-                              crossAxisSpacing: 8,
-                              mainAxisSpacing: 10,
+                              maxCrossAxisExtent: 250,
+                              childAspectRatio: 2 / 3.8,
+                              crossAxisSpacing: 1,
+                              mainAxisSpacing: 0,
                             ),
                             itemCount: snapshot.data!.size,
                             itemBuilder: (BuildContext context, int i) {
@@ -247,10 +247,10 @@ class MyAddScreen extends StatelessWidget {
                           child: GridView.builder(
                             gridDelegate:
                             const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              childAspectRatio: 2 / 3.6,
+                              maxCrossAxisExtent: 250,
+                              childAspectRatio: 2 / 3.8,
                               crossAxisSpacing: 8,
-                              mainAxisSpacing: 10,
+                              mainAxisSpacing: 0,
                             ),
                             itemCount: snapshot.data!.size,
                             itemBuilder: (BuildContext context, int i) {
