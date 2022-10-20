@@ -1091,9 +1091,8 @@ class _EditProductDetailsState extends State<EditProductDetails> {
                             ),
                         )
                         : Container(),
-                    const SizedBox(
-                      height: 60,
-                    ),
+                        const SizedBox(height:80,),
+                   
                   ], // Video 13 31:20 fuel controller
                 ),
               ),

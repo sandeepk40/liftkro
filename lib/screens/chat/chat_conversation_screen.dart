@@ -86,6 +86,7 @@ class _ChatConversationsState extends State<ChatConversations> {
                       Expanded(
                         child: SizedBox(
                           child: TextField(
+                            
                             cursorColor: Colors.black,
                             controller: chatController,
                             style: const TextStyle(
@@ -145,20 +146,26 @@ class _ChatConversationsState extends State<ChatConversations> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 12,),
+                      SizedBox(
+                        width: 12,
+                      ),
                       Container(
                         height: 40,
                         width: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
                           color: Colors.black12,
-                            // border: const Border(
-                  //   top: BorderSide(color: Colors.black),
-                  // ),
+                          // border: const Border(
+                          //   top: BorderSide(color: Colors.black),
+                          // ),
                         ),
                         child: IconButton(
                           onPressed: sendMessage,
-                          icon: const Icon(Icons.send, color: Colors.black,size: 18,),
+                          icon: const Icon(
+                            Icons.send,
+                            color: Colors.black,
+                            size: 18,
+                          ),
                         ),
                       ),
                     ],

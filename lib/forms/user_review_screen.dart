@@ -199,6 +199,9 @@ class _UserReviewScreenState extends State<UserReviewScreen> {
                                 'name': _nameController.text,
                                 'mobile': _phoneController.text,
                                 'shop_name': _shopnNameController.text,
+                                'address':_addressController.text,
+                                'email': _emailController.text,
+
                               },
                               context)
                               .then(
@@ -240,11 +243,7 @@ class _UserReviewScreenState extends State<UserReviewScreen> {
           'Review your details',
           style: TextStyle(color: Colors.black),
         ),
-        shape: Border(
-          bottom: BorderSide(
-            color: Colors.grey.shade300,
-          ),
-        ),
+       
       ),
       body: Form(
         key: _formKey,

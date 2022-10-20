@@ -265,283 +265,286 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           builder: (context, snapshot) {
             // print('steam data: ${snapshot.data!.docs[0]['ratting']}');
             return snapshot.data != null
-                ? SafeArea(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 600,
-                            color: Colors.white,
-                            child: _loading
-                                ? Center(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: const [
-                                        CircularProgressIndicator(
-                                          color: Colors.black,
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          'Loading Your Add',
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                : Stack(
-                                    children: [
-                                      Center(
-                                        child: PhotoView(
-                                          backgroundDecoration:
-                                              const BoxDecoration(
-                                                  // color: Colors.white,
-                                                  ),
-                                          imageProvider: NetworkImage(
-                                              widget.data['images'][_index]),
-                                        ),
+                ? SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 600,
+                          color: Colors.white,
+                          child: _loading
+                              ? Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: const [
+                                      CircularProgressIndicator(
+                                        color: Colors.black,
                                       ),
-                                      Positioned(
-                                        bottom: 0.0,
-                                        child: Container(
-                                          height: 80,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 12, right: 12),
-                                            child: ListView.builder(
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount:
-                                                  widget.data['images'].length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int i) {
-                                                return InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _index = i;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    height: 70,
-                                                    width: 60,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        border: Border.all(
-                                                          color: Colors.black38,
-                                                        ),
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .all(
-                                                                Radius.circular(
-                                                                    10))),
-                                                    child: Image.network(widget
-                                                        .data['images'][i]),
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        'Loading Your Add',
                                       ),
                                     ],
                                   ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          // Padding(
-                          //   padding:
-                          //       const EdgeInsets.only(left: 10, bottom: 10),
-                          //   child: Container(
-                          //     child: Row(
-                          //       children: [
-                          //         Text(
-                          //           'Type-${widget.data['type']}',
-                          //           style: const TextStyle(
-                          //             color: Colors.black38,
-                          //             fontSize: 14,
-                          //             fontStyle: FontStyle.italic,
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // ),
-                          _loading
-                              ? Container()
-                              : Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                        ),
+                                )
+                              : Stack(
+                                  children: [
+                                    Center(
+                                      child: PhotoView(
+                                        backgroundDecoration:
+                                            const BoxDecoration(
+                                                // color: Colors.white,
+                                                ),
+                                        imageProvider: NetworkImage(
+                                            widget.data['images'][_index]),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0.0,
+                                      child: Container(
+                                        height: 80,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                            left: 18,
-                                            right: 12,
-                                            top: 5,
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    widget.data['productName']
-                                                        .toUpperCase(),
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 16,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                  const Icon(
-                                                    Icons
-                                                        .favorite_border_outlined,
-                                                    size: 30,
-                                                    color: Colors.black38,
-                                                  ),
-                                                ],
-                                              ),
-                                              // const SizedBox(
-                                              //   height: 5,
-                                              // ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    '${widget.data['type']}',
-                                                    style: const TextStyle(
+                                              left: 12, right: 12),
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount:
+                                                widget.data['images'].length,
+                                            itemBuilder:
+                                                (BuildContext context, int i) {
+                                              return InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _index = i;
+                                                  });
+                                                },
+                                                child: Container(
+                                                  height: 70,
+                                                  width: 60,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    border: Border.all(
                                                       color: Colors.black38,
-                                                      fontSize: 14,
-                                                      fontStyle:
-                                                          FontStyle.italic,
+                                                    ),
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                      Radius.circular(
+                                                        10,
+                                                      ),
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    '₹$price',
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                      Radius.circular(
+                                                        10,
+                                                      ),
                                                     ),
+                                                    child: Image.network(widget
+                                                        .data['images'][i]),
                                                   ),
-                                                  // const SizedBox(
-                                                  //   width: 8,
-                                                  // ),
-                                                  // const Text(
-                                                  //   'Inclusive of all taxes',
-                                                  //   style: TextStyle(
-                                                  //     color: Colors.grey,
-                                                  //     fontSize: 15,
-                                                  //   ),
-                                                  // ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                            ],
+                                                ),
+                                              );
+                                            },
                                           ),
                                         ),
                                       ),
-                                      _loading
-                                          ? Container()
-                                          : StreamBuilder<QuerySnapshot>(
-                                              stream: chatMessageStream,
-                                              builder: (context,
-                                                  AsyncSnapshot<QuerySnapshot>
-                                                      snapshot) {
-                                                print(
-                                                    'all details: ${snapshot.data}');
-                                                return Container(
-                                                  color: Colors.white,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 10),
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
-                                                        context: context,
-                                                        shape:
-                                                            const RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          15),
+                                    ),
+                                  ],
+                                ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        // Padding(
+                        //   padding:
+                        //       const EdgeInsets.only(left: 10, bottom: 10),
+                        //   child: Container(
+                        //     child: Row(
+                        //       children: [
+                        //         Text(
+                        //           'Type-${widget.data['type']}',
+                        //           style: const TextStyle(
+                        //             color: Colors.black38,
+                        //             fontSize: 14,
+                        //             fontStyle: FontStyle.italic,
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        _loading
+                            ? Container()
+                            : Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 18,
+                                          right: 12,
+                                          top: 5,
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  widget.data['productName']
+                                                      .toUpperCase(),
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                const Icon(
+                                                  Icons
+                                                      .favorite_border_outlined,
+                                                  size: 30,
+                                                  color: Colors.black38,
+                                                ),
+                                              ],
+                                            ),
+                                            // const SizedBox(
+                                            //   height: 5,
+                                            // ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '${widget.data['type']}',
+                                                  style: const TextStyle(
+                                                    color: Colors.black38,
+                                                    fontSize: 14,
+                                                    fontStyle: FontStyle.italic,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '₹$price',
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                                // const SizedBox(
+                                                //   width: 8,
+                                                // ),
+                                                // const Text(
+                                                //   'Inclusive of all taxes',
+                                                //   style: TextStyle(
+                                                //     color: Colors.grey,
+                                                //     fontSize: 15,
+                                                //   ),
+                                                // ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    _loading
+                                        ? Container()
+                                        : StreamBuilder<QuerySnapshot>(
+                                            stream: chatMessageStream,
+                                            builder: (context,
+                                                AsyncSnapshot<QuerySnapshot>
+                                                    snapshot) {
+                                              print(
+                                                  'all details: ${snapshot.data}');
+                                              return Container(
+                                                color: Colors.white,
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      context: context,
+                                                      shape:
+                                                          const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        15),
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        15)),
+                                                      ),
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return Scaffold(
+                                                          appBar: AppBar(
+                                                            backgroundColor:
+                                                                Colors.white,
+                                                            elevation: 0,
+                                                            title: const Text(
+                                                              'Review',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .transparent),
+                                                            ),
+                                                          ),
+                                                          body: Container(
+                                                            height:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              borderRadius: BorderRadius.only(
                                                                   topLeft: Radius
                                                                       .circular(
-                                                                          15)),
-                                                        ),
-                                                        builder: (BuildContext
-                                                            context) {
-                                                          return Scaffold(
-                                                            appBar: AppBar(
-                                                              backgroundColor:
-                                                                  Colors.white,
-                                                              elevation: 0,
-                                                              title: const Text(
-                                                                'Review',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .transparent),
-                                                              ),
+                                                                          30),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          30)),
                                                             ),
-                                                            body: Container(
-                                                              height:
-                                                                  MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height,
-                                                              decoration:
-                                                                  const BoxDecoration(
-                                                                borderRadius: BorderRadius.only(
-                                                                    topLeft: Radius
-                                                                        .circular(
-                                                                            30),
-                                                                    topRight: Radius
-                                                                        .circular(
-                                                                            30)),
-                                                              ),
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        left:
-                                                                            8.0,
-                                                                        right:
-                                                                            8,
-                                                                        top: 0),
-                                                                    child: Container(
-                                                                        child: Row(
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      left:
+                                                                          12.0,
+                                                                      right: 8,
+                                                                      top: 0),
+                                                                  child:
+                                                                      Container(
+                                                                    child: Row(
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
                                                                               .spaceBetween,
@@ -554,1321 +557,1330 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                               fontWeight: FontWeight.bold),
                                                                         ),
                                                                         IconButton(
-                                                                            onPressed:
-                                                                                () {
-                                                                              // datat.then((value) => {
-                                                                              //   // for(var i =0;i<=value.docs.length ; i++){
-                                                                              //     print('all employee: ${value['uid']}')
-                                                                              //
-                                                                              //   // }
-                                                                              // });
-                                                                              // print('userdetails: ${datat.get()}');
-                                                                              Navigator.of(context).pop();
-                                                                            },
-                                                                            icon:
-                                                                                const Icon(
-                                                                              Icons.keyboard_arrow_down_outlined,
-                                                                              color: Colors.black,
-                                                                              size: 26,
-                                                                            ))
-                                                                      ],
-                                                                    )),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                    height: 15,
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child: Row(
-                                                                      children: [
-                                                                        Column(
-                                                                          children: [
-                                                                            Row(
-                                                                              children: [
-                                                                                Container(
-                                                                                  child: Text(
-                                                                                    getaverageRtings.toString() != 'NaN' ? getaverageRtings.toStringAsFixed(1) : '0',
-                                                                                    style: const TextStyle(color: Colors.green, fontSize: 35, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                                const Icon(
-                                                                                  Icons.star,
-                                                                                  color: Colors.green,
-                                                                                )
-                                                                              ],
-                                                                            ),
-                                                                            const SizedBox(height: 25),
-                                                                            Text(
-                                                                              '${getaverageRtings.toString() != 'NaN' ? getaverageRtings.toStringAsFixed(1) : '0'} ratings',
-                                                                              style: const TextStyle(color: Colors.grey),
-                                                                            ),
-                                                                            const SizedBox(height: 8),
-                                                                            Text('${snapshot.data!.docs[0]['ratting'] != [] ? snapshot.data!.docs[0]['ratting'].length : '0'} reviews',
-                                                                                style: const TextStyle(color: Colors.grey)),
-                                                                            const SizedBox(
-                                                                              width: 30,
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                        Expanded(
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                250,
-                                                                            child:
-                                                                                ListView.builder(
-                                                                              itemCount: reviewsData.length,
-                                                                              shrinkWrap: true,
-                                                                              itemBuilder: (BuildContext context, int index) {
-                                                                                print('rtting uid: $rattingUserList');
-                                                                                return Padding(
-                                                                                  padding: const EdgeInsets.only(top: 8.0),
-                                                                                  child: Row(
-                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                    children: [
-                                                                                      Row(
-                                                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                                                        children: [
-                                                                                          const SizedBox(
-                                                                                            width: 10,
-                                                                                          ),
-                                                                                          Text('${reviewsData[index]}'),
-                                                                                        ],
-                                                                                      ),
-                                                                                      // SizedBox(
-                                                                                      //   width: index == 0
-                                                                                      //       ? 10
-                                                                                      //       : index == 1
-                                                                                      //           ? 3
-                                                                                      //           : index == 2
-                                                                                      //               ? 33
-                                                                                      //               : index == 3
-                                                                                      //                   ? 16
-                                                                                      //                   : 38,
-                                                                                      // ),
-                                                                                      Row(
-                                                                                        children: [
-                                                                                          Align(
-                                                                                            alignment: Alignment.centerRight,
-                                                                                            child: LinearPercentIndicator(
-                                                                                              animation: true,
-                                                                                              lineHeight: 6.0,
-                                                                                              curve: Curves.easeInOutCubic,
-                                                                                              animationDuration: 2500,
-                                                                                              linearStrokeCap: LinearStrokeCap.roundAll,
-                                                                                              progressColor: index == 0
-                                                                                                  ? Colors.green
-                                                                                                  : index == 1
-                                                                                                      ? Colors.lightGreen
-                                                                                                      : index == 2
-                                                                                                          ? Colors.lightGreenAccent
-                                                                                                          : index == 3
-                                                                                                              ? Colors.orange
-                                                                                                              : Colors.red,
-                                                                                              width: MediaQuery.of(context).size.width / 2.7,
-                                                                                              percent: ratingList[index],
-                                                                                            ),
-                                                                                          ),
-                                                                                          Text('${reviewsPercentage[index]}'),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                );
-                                                                              },
-                                                                            ),
+                                                                          onPressed:
+                                                                              () {
+                                                                            // datat.then((value) => {
+                                                                            //   // for(var i =0;i<=value.docs.length ; i++){
+                                                                            //     print('all employee: ${value['uid']}')
+                                                                            //
+                                                                            //   // }
+                                                                            // });
+                                                                            // print('userdetails: ${datat.get()}');
+                                                                            Navigator.of(context).pop();
+                                                                          },
+                                                                          icon:
+                                                                              const Icon(
+                                                                            Icons.keyboard_arrow_down_outlined,
+                                                                            color:
+                                                                                Colors.black,
+                                                                            size:
+                                                                                26,
                                                                           ),
                                                                         ),
                                                                       ],
                                                                     ),
                                                                   ),
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        left:
-                                                                            5.0,
-                                                                        right:
-                                                                            5),
-                                                                    child:
-                                                                        Container(
-                                                                      height: 1,
-                                                                      width: double
-                                                                          .infinity,
-                                                                      color: Colors
-                                                                          .grey,
-                                                                    ),
-                                                                  ),
-                                                                  Visibility(
-                                                                    visible: snapshot.data!.docs[0]['ratting'] !=
-                                                                            []
-                                                                        ? true
-                                                                        : false,
-                                                                    child:
-                                                                        Container(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      height: MediaQuery.of(context)
-                                                                              .size
-                                                                              .height /
-                                                                          1.5,
-                                                                      child: StreamBuilder<
-                                                                          QuerySnapshot>(
-                                                                        stream:
-                                                                            chatMessageStream,
-                                                                        builder:
-                                                                            (context,
-                                                                                AsyncSnapshot<QuerySnapshot> snapshot1) {
-                                                                          // print('datatt: ${snapshot.data!.docs.length}');
-                                                                          return ListView.builder(
-                                                                              itemCount: snapshot.data!.docs[0]['ratting'].length,
-                                                                              itemBuilder: (contex, index) {
-                                                                                rattingUserList.add(snapshot.data!.docs[0]['ratting'][index]['uid']);
-                                                                                print('ratting12: ${snapshot.data!.docs[0]['ratting'].length}');
-                                                                                return Padding(
-                                                                                  padding: const EdgeInsets.only(left: 8.0),
-                                                                                  child: Column(
-                                                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                    children: [
-                                                                                      Container(
-                                                                                        child: Text(
-                                                                                          '${snapshot.data!.docs[0]['ratting'] != [] ? snapshot.data!.docs[0]['ratting'][index]['userName'] : '-'}',
-                                                                                          style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
-                                                                                        ),
-                                                                                      ),
-                                                                                      Container(
-                                                                                        child: Padding(
-                                                                                          padding: const EdgeInsets.all(3.0),
-                                                                                          child: Row(
-                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                            children: [
-                                                                                              Row(
-                                                                                                children: [
-                                                                                                  Container(
-                                                                                                    decoration: BoxDecoration(color: Colors.green, border: Border.all(color: Colors.green), borderRadius: BorderRadius.circular(15)),
-                                                                                                    child: Padding(
-                                                                                                      padding: const EdgeInsets.all(3.0),
-                                                                                                      child: Row(
-                                                                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                                        children: [
-                                                                                                          Text(
-                                                                                                            snapshot.data!.docs[0]['ratting'][index]['rating'].toString(),
-                                                                                                            style: const TextStyle(color: Colors.white),
-                                                                                                          ),
-                                                                                                          const Icon(
-                                                                                                            Icons.star,
-                                                                                                            size: 17,
-                                                                                                            color: Colors.white,
-                                                                                                          )
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  const SizedBox(
-                                                                                                    width: 10,
-                                                                                                  ),
-                                                                                                  const Text(
-                                                                                                    '*',
-                                                                                                    style: TextStyle(color: Colors.grey),
-                                                                                                  ),
-                                                                                                  const SizedBox(
-                                                                                                    width: 10,
-                                                                                                  ),
-                                                                                                  Text(
-                                                                                                    "Posted on ${snapshot.data!.docs[0]['ratting'][index]['postedDate'].toString() != '' ? DateFormat('dd MMM, yyyy').format(DateTime.parse(snapshot.data!.docs[0]['ratting'][index]['postedDate'].toString())) : ''}",
-                                                                                                    style: const TextStyle(
-                                                                                                      color: Colors.grey,
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-                                                                                              ),
-                                                                                              Row(
-                                                                                                children: [
-                                                                                                  IconButton(
-                                                                                                      onPressed: () {
-                                                                                                        // print('getpresous: ${snapshot.data!.docs[1]['ratting']}');
-                                                                                                        updateReviewDialog(snapshot.data!.docs[0]['ratting'][index], snapshot.data!.docs[0]['ratting'], context);
-                                                                                                      },
-                                                                                                      icon: const Icon(
-                                                                                                        Icons.edit,
-                                                                                                        color: Colors.blue,
-                                                                                                      )),
-                                                                                                  const SizedBox(
-                                                                                                    width: 7,
-                                                                                                  ),
-                                                                                                  IconButton(
-                                                                                                      onPressed: () {
-                                                                                                        showDialog(
-                                                                                                            context: context,
-                                                                                                            builder: (BuildContext context) {
-                                                                                                              return AlertDialog(
-                                                                                                                title: const Text('Review Delete'),
-                                                                                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                                                                                                                //this right here
-                                                                                                                content: const Text('Do You Want To Delete This Review'),
-                                                                                                                actions: [
-                                                                                                                  TextButton(
-                                                                                                                    onPressed: () {
-                                                                                                                      _service.rattingRemoe(index, snapshot.data!.docs[0]['productId'], context);
-                                                                                                                      // print("datat ${ _service.products.doc(widget.data['productId']).update({"ratting":FieldValue.arrayRemove([index])})}");
-                                                                                                                      _service.products.doc(snapshot.data!.docs[0]['productId']).update({
-                                                                                                                        "ratting": FieldValue.arrayRemove([
-                                                                                                                          {
-                                                                                                                            'postedDate': snapshot.data!.docs[0]['ratting'][index]['postedDate'],
-                                                                                                                            'rating': snapshot.data!.docs[0]['ratting'][index]['rating'],
-                                                                                                                            'review': snapshot.data!.docs[0]['ratting'][index]['review'],
-                                                                                                                            'userName': snapshot.data!.docs[0]['ratting'][index]['userName'],
-                                                                                                                            'uid': snapshot.data!.docs[0]['ratting'][index]['uid'],
-                                                                                                                          }
-                                                                                                                        ])
-                                                                                                                      });
-                                                                                                                      _service.products.doc('ratting').delete();
-                                                                                                                      Navigator.of(context).pop();
-                                                                                                                      Navigator.of(context).pop();
-                                                                                                                      const SnackBar(
-                                                                                                                        content: Text(
-                                                                                                                          'Review Deleted Successfully !!',
-                                                                                                                          style: TextStyle(color: Colors.white),
-                                                                                                                        ),
-                                                                                                                        behavior: SnackBarBehavior.floating,
-                                                                                                                        backgroundColor: Colors.green,
-                                                                                                                      );
-                                                                                                                    },
-                                                                                                                    child: const Text(
-                                                                                                                      'Delete',
-                                                                                                                      style: TextStyle(color: Colors.red, fontSize: 16),
-                                                                                                                    ),
-                                                                                                                  ),
-                                                                                                                  TextButton(
-                                                                                                                    onPressed: () {
-                                                                                                                      Navigator.of(context).pop();
-                                                                                                                    },
-                                                                                                                    child: const Text(
-                                                                                                                      'Cancel',
-                                                                                                                      style: TextStyle(color: Colors.green, fontSize: 16),
-                                                                                                                    ),
-                                                                                                                  )
-                                                                                                                ],
-                                                                                                              );
-                                                                                                            });
-                                                                                                      },
-                                                                                                      icon: const Icon(
-                                                                                                        Icons.delete,
-                                                                                                        color: Colors.red,
-                                                                                                      )),
-                                                                                                ],
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                      Container(
-                                                                                        padding: const EdgeInsets.only(left: 10.0),
-                                                                                        child: Text(snapshot.data!.docs[0]['ratting'] != [] ? snapshot.data!.docs[0]['ratting'][index]['review'] : '0', style: const TextStyle(color: Colors.black)),
-                                                                                      ),
-                                                                                      const SizedBox(
-                                                                                        height: 10,
-                                                                                      ),
-                                                                                      Padding(
-                                                                                        padding: const EdgeInsets.only(left: 5.0, right: 5),
-                                                                                        child: Container(
-                                                                                          height: 1,
-                                                                                          width: double.infinity,
-                                                                                          color: Colors.grey,
-                                                                                        ),
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                );
-                                                                              });
-                                                                        },
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .fromLTRB(
+                                                                          15,
+                                                                          8,
+                                                                          15,
+                                                                          18),
+                                                                  child: Row(
+                                                                    children: [
+                                                                      Column(
+                                                                        children: [
+                                                                          Row(
+                                                                            children: [
+                                                                              Container(
+                                                                                child: Text(
+                                                                                  getaverageRtings.toString() != 'NaN' ? getaverageRtings.toStringAsFixed(1) : '0',
+                                                                                  style: const TextStyle(color: Colors.green, fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                ),
+                                                                              ),
+                                                                              const Icon(
+                                                                                Icons.star,
+                                                                                color: Colors.green,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 15),
+                                                                          Text(
+                                                                            '${getaverageRtings.toString() != 'NaN' ? getaverageRtings.toStringAsFixed(1) : '0'} ratings',
+                                                                            style:
+                                                                                const TextStyle(color: Colors.grey, fontSize: 14),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 5),
+                                                                          Text(
+                                                                            '${snapshot.data!.docs[0]['ratting'] != [] ? snapshot.data!.docs[0]['ratting'].length : '0'} reviews',
+                                                                            style:
+                                                                                const TextStyle(color: Colors.grey, fontSize: 14),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                            width:
+                                                                                5,
+                                                                          )
+                                                                        ],
                                                                       ),
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            floatingActionButton:
-                                                                FloatingActionButton(
-                                                                    child: const Icon(
-                                                                        Icons
-                                                                            .add),
-                                                                    onPressed:
-                                                                        () {
-                                                                      var dd;
-                                                                      if (userIdList.any(
-                                                                          (item) =>
-                                                                              rattingUserList.contains(item))) {
-                                                                        _service
-                                                                            .getUserData()
-                                                                            .then((value) =>
-                                                                                {
-                                                                                  for (var i = 0; i < snapshot.data!.docs.length; i++)
-                                                                                    {
-                                                                                      _service.products.doc(widget.data['productId']).get().then((value) => {
-                                                                                            print('ddajkljl ${value['ratting']}')
-                                                                                          }),
-                                                                                      if (snapshot.data!.docs[0]['ratting'][i]['uid'] == value['uid'])
-                                                                                        {
-                                                                                          setState(() {
-                                                                                            dd = snapshot.data!.docs[0]['ratting'][i]['rating'];
-                                                                                          }),
-                                                                                          showAlertDialog(widget.data['productId'], widget.data['ratting'], dd, context)
-                                                                                        }
-                                                                                    }
-                                                                                });
-                                                                        // ScaffoldMessenger.of(context).showSnackBar(
-                                                                        //     const SnackBar(
-                                                                        //       content: Text(
-                                                                        //         "Sorry you can't add more than 1 review for this item !!",
-                                                                        //         style: TextStyle(color: Colors.white),
-                                                                        //       ),
-                                                                        //       behavior: SnackBarBehavior.floating,
-                                                                        //       backgroundColor: Colors.red,
-                                                                        //     ));
-                                                                        // Lists have at least one common element
-                                                                        // } else {
-                                                                        //   print('outside');
-                                                                      } else {
-                                                                        showAlertDialog(
-                                                                            widget.data['productId'],
-                                                                            widget.data['ratting'],
-                                                                            dd,
-                                                                            context);
-                                                                      }
-                                                                      // print('previous: ${snapshot.data!.docs[0]['ratting']}');
-                                                                    }),
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                        left: 5,
-                                                        bottom: 10,
-                                                      ),
-                                                      child: Row(
-                                                        children: [
-                                                          Container(
-                                                            width: 45,
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .green,
-                                                                border: Border.all(
-                                                                    color: Colors
-                                                                        .green),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15)),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(3.0),
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
-                                                                children: [
-                                                                  Text(
-                                                                    "${getaverageRtings.toString() != 'NaN' ? getaverageRtings.toStringAsFixed(1) : '0'}",
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          13,
-                                                                    ),
+                                                                      Expanded(
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              250,
+                                                                          child:
+                                                                              ListView.builder(
+                                                                            itemCount:
+                                                                                reviewsData.length,
+                                                                            shrinkWrap:
+                                                                                true,
+                                                                            itemBuilder:
+                                                                                (BuildContext context, int index) {
+                                                                              print('rtting uid: $rattingUserList');
+                                                                              return Padding(
+                                                                                padding: const EdgeInsets.only(top: 8.0),
+                                                                                child: Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                  children: [
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                                                      children: [
+                                                                                        const SizedBox(
+                                                                                          width: 10,
+                                                                                        ),
+                                                                                        Text(
+                                                                                          '${reviewsData[index]}',
+                                                                                          style: TextStyle(fontSize: 13),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                    // SizedBox(
+                                                                                    //   width: index == 0
+                                                                                    //       ? 10
+                                                                                    //       : index == 1
+                                                                                    //           ? 3
+                                                                                    //           : index == 2
+                                                                                    //               ? 33
+                                                                                    //               : index == 3
+                                                                                    //                   ? 16
+                                                                                    //                   : 38,
+                                                                                    // ),
+                                                                                    Row(
+                                                                                      children: [
+                                                                                        LinearPercentIndicator(
+                                                                                          animation: true,
+                                                                                          lineHeight: 6.0,
+                                                                                          curve: Curves.easeInOutCubic,
+                                                                                          animationDuration: 2500,
+                                                                                          barRadius: const Radius.circular(10),
+                                                                                          progressColor: index == 0
+                                                                                              ? Colors.green
+                                                                                              : index == 1
+                                                                                                  ? Colors.lightGreen
+                                                                                                  : index == 2
+                                                                                                      ? Colors.lightGreenAccent
+                                                                                                      : index == 3
+                                                                                                          ? Colors.orange
+                                                                                                          : Colors.red,
+                                                                                          width: MediaQuery.of(context).size.width / 1.9,
+                                                                                          percent: ratingList[index],
+                                                                                        ),
+                                                                                        Text('${reviewsPercentage[index]}'),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              );
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
                                                                   ),
-                                                                  const Icon(
-                                                                    Icons.star,
-                                                                    size: 12,
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                    left: 15.0,
+                                                                    right: 15,
+                                                                  ),
+                                                                  child:
+                                                                      Container(
+                                                                    height: 1,
+                                                                    width: double
+                                                                        .infinity,
+                                                                    color: Colors
+                                                                        .grey,
+                                                                  ),
+                                                                ),
+                                                                Visibility(
+                                                                  visible: snapshot
+                                                                              .data!
+                                                                              .docs[0]['ratting'] !=
+                                                                          []
+                                                                      ? true
+                                                                      : false,
+                                                                  child:
+                                                                      Container(
                                                                     color: Colors
                                                                         .white,
-                                                                  )
-                                                                ],
-                                                              ),
+                                                                    height: MediaQuery.of(context)
+                                                                            .size
+                                                                            .height /
+                                                                        1.5,
+                                                                    child: StreamBuilder<
+                                                                        QuerySnapshot>(
+                                                                      stream:
+                                                                          chatMessageStream,
+                                                                      builder: (context,
+                                                                          AsyncSnapshot<QuerySnapshot>
+                                                                              snapshot1) {
+                                                                        // print('datatt: ${snapshot.data!.docs.length}');
+                                                                        return ListView.builder(
+                                                                            itemCount: snapshot.data!.docs[0]['ratting'].length,
+                                                                            itemBuilder: (contex, index) {
+                                                                              rattingUserList.add(snapshot.data!.docs[0]['ratting'][index]['uid']);
+                                                                              print('ratting12: ${snapshot.data!.docs[0]['ratting'].length}');
+                                                                              return Padding(
+                                                                                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                                                                                child: Column(
+                                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                  children: [
+                                                                                    Container(
+                                                                                      child: Padding(
+                                                                                        padding: const EdgeInsets.only(left: 6, top: 15),
+                                                                                        child: Text(
+                                                                                          '${snapshot.data!.docs[0]['ratting'] != [] ? snapshot.data!.docs[0]['ratting'][index]['userName'] : '-'}',
+                                                                                          style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Container(
+                                                                                      child: Padding(
+                                                                                        padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+                                                                                        child: Row(
+                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                          children: [
+                                                                                            Row(
+                                                                                              children: [
+                                                                                                Container(
+                                                                                                  decoration: BoxDecoration(color: Colors.green, border: Border.all(color: Colors.green), borderRadius: BorderRadius.circular(15)),
+                                                                                                  child: Padding(
+                                                                                                    padding: const EdgeInsets.all(3.0),
+                                                                                                    child: Row(
+                                                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                      children: [
+                                                                                                        Text(
+                                                                                                          snapshot.data!.docs[0]['ratting'][index]['rating'].toString(),
+                                                                                                          style: const TextStyle(color: Colors.white, fontSize: 12),
+                                                                                                        ),
+                                                                                                        const SizedBox(
+                                                                                                          width: 2,
+                                                                                                        ),
+                                                                                                        const Icon(
+                                                                                                          Icons.star,
+                                                                                                          size: 13,
+                                                                                                          color: Colors.white,
+                                                                                                        )
+                                                                                                      ],
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                const SizedBox(
+                                                                                                  width: 10,
+                                                                                                ),
+                                                                                                // const Text(
+                                                                                                //   '*',
+                                                                                                //   style: TextStyle(color: Colors.grey),
+                                                                                                // ),
+                                                                                                // const SizedBox(
+                                                                                                //   width: 10,
+                                                                                                // ),
+                                                                                                Text(
+                                                                                                  "(Posted on ${snapshot.data!.docs[0]['ratting'][index]['postedDate'].toString() != '' ? DateFormat('dd MMM, yyyy').format(DateTime.parse(snapshot.data!.docs[0]['ratting'][index]['postedDate'].toString())) : ''})",
+                                                                                                  style: const TextStyle(
+                                                                                                    color: Colors.grey,
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                            Row(
+                                                                                              children: [
+                                                                                                // IconButton(
+                                                                                                //     onPressed: () {
+                                                                                                //       // print('getpresous: ${snapshot.data!.docs[1]['ratting']}');
+                                                                                                //       updateReviewDialog(snapshot.data!.docs[0]['ratting'][index], snapshot.data!.docs[0]['ratting'], context);
+                                                                                                //     },
+                                                                                                //     icon: const Icon(
+                                                                                                //       Icons.edit,
+                                                                                                //       color: Colors.black,
+                                                                                                //     )),
+                                                                                                // const SizedBox(
+                                                                                                //   width: 7,
+                                                                                                // ),
+                                                                                                IconButton(
+                                                                                                  onPressed: () {
+                                                                                                    showDialog(
+                                                                                                        context: context,
+                                                                                                        builder: (BuildContext context) {
+                                                                                                          return AlertDialog(
+                                                                                                            title: const Text('Review Delete'),
+                                                                                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                                                                                                            //this right here
+                                                                                                            content: const Text('Do You Want To Delete This Review'),
+                                                                                                            actions: [
+                                                                                                              TextButton(
+                                                                                                                onPressed: () {
+                                                                                                                  _service.rattingRemoe(index, snapshot.data!.docs[0]['productId'], context);
+                                                                                                                  // print("datat ${ _service.products.doc(widget.data['productId']).update({"ratting":FieldValue.arrayRemove([index])})}");
+                                                                                                                  _service.products.doc(snapshot.data!.docs[0]['productId']).update({
+                                                                                                                    "ratting": FieldValue.arrayRemove([
+                                                                                                                      {
+                                                                                                                        'postedDate': snapshot.data!.docs[0]['ratting'][index]['postedDate'],
+                                                                                                                        'rating': snapshot.data!.docs[0]['ratting'][index]['rating'],
+                                                                                                                        'review': snapshot.data!.docs[0]['ratting'][index]['review'],
+                                                                                                                        'userName': snapshot.data!.docs[0]['ratting'][index]['userName'],
+                                                                                                                        'uid': snapshot.data!.docs[0]['ratting'][index]['uid'],
+                                                                                                                      }
+                                                                                                                    ])
+                                                                                                                  });
+                                                                                                                  _service.products.doc('ratting').delete();
+                                                                                                                  Navigator.of(context).pop();
+                                                                                                                  Navigator.of(context).pop();
+                                                                                                                  const SnackBar(
+                                                                                                                    content: Text(
+                                                                                                                      'Review Deleted Successfully !!',
+                                                                                                                      style: TextStyle(color: Colors.white),
+                                                                                                                    ),
+                                                                                                                    behavior: SnackBarBehavior.floating,
+                                                                                                                    backgroundColor: Colors.green,
+                                                                                                                  );
+                                                                                                                },
+                                                                                                                child: const Text(
+                                                                                                                  'Delete',
+                                                                                                                  style: TextStyle(color: Colors.red, fontSize: 16),
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                              TextButton(
+                                                                                                                onPressed: () {
+                                                                                                                  Navigator.of(context).pop();
+                                                                                                                },
+                                                                                                                child: const Text(
+                                                                                                                  'Cancel',
+                                                                                                                  style: TextStyle(color: Colors.green, fontSize: 16),
+                                                                                                                ),
+                                                                                                              )
+                                                                                                            ],
+                                                                                                          );
+                                                                                                        });
+                                                                                                  },
+                                                                                                  icon: const Icon(
+                                                                                                    Icons.more_vert_sharp,
+                                                                                                    color: Colors.black,
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Container(
+                                                                                      padding: const EdgeInsets.only(left: 10.0),
+                                                                                      child: Text(snapshot.data!.docs[0]['ratting'] != [] ? snapshot.data!.docs[0]['ratting'][index]['review'] : '0', style: const TextStyle(color: Colors.black)),
+                                                                                    ),
+                                                                                    const SizedBox(
+                                                                                      height: 10,
+                                                                                    ),
+                                                                                    Padding(
+                                                                                      padding: const EdgeInsets.only(left: 5.0, right: 5),
+                                                                                      child: Container(
+                                                                                        height: 1,
+                                                                                        width: double.infinity,
+                                                                                        color: Colors.grey,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              );
+                                                                            });
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
                                                             ),
                                                           ),
-                                                          // const SizedBox(
-                                                          //   width: 10,
-                                                          // ),
-                                                          Row(
-                                                            children: [
-                                                              const Icon(Icons
-                                                                  .group_outlined),
-                                                              const SizedBox(
-                                                                width: 7,
-                                                              ),
-                                                              Text(
-                                                                '(Coming from ${widget.data['ratting'].length} reviews)',
-                                                              ),
-                                                            ],
+                                                          floatingActionButton:
+                                                              FloatingActionButton(
+                                                                  child: const Icon(
+                                                                      Icons
+                                                                          .add),
+                                                                  onPressed:
+                                                                      () {
+                                                                    var dd;
+                                                                    if (userIdList.any(
+                                                                        (item) =>
+                                                                            rattingUserList.contains(item))) {
+                                                                      _service
+                                                                          .getUserData()
+                                                                          .then((value) =>
+                                                                              {
+                                                                                for (var i = 0; i < snapshot.data!.docs.length; i++)
+                                                                                  {
+                                                                                    _service.products.doc(widget.data['productId']).get().then((value) => {
+                                                                                          print('ddajkljl ${value['ratting']}')
+                                                                                        }),
+                                                                                    if (snapshot.data!.docs[0]['ratting'][i]['uid'] == value['uid'])
+                                                                                      {
+                                                                                        setState(() {
+                                                                                          dd = snapshot.data!.docs[0]['ratting'][i]['rating'];
+                                                                                        }),
+                                                                                        showAlertDialog(widget.data['productId'], widget.data['ratting'], dd, context)
+                                                                                      }
+                                                                                  }
+                                                                              });
+                                                                      // ScaffoldMessenger.of(context).showSnackBar(
+                                                                      //     const SnackBar(
+                                                                      //       content: Text(
+                                                                      //         "Sorry you can't add more than 1 review for this item !!",
+                                                                      //         style: TextStyle(color: Colors.white),
+                                                                      //       ),
+                                                                      //       behavior: SnackBarBehavior.floating,
+                                                                      //       backgroundColor: Colors.red,
+                                                                      //     ));
+                                                                      // Lists have at least one common element
+                                                                      // } else {
+                                                                      //   print('outside');
+                                                                    } else {
+                                                                      showAlertDialog(
+                                                                          widget.data[
+                                                                              'productId'],
+                                                                          widget
+                                                                              .data['ratting'],
+                                                                          dd,
+                                                                          context);
+                                                                    }
+                                                                    // print('previous: ${snapshot.data!.docs[0]['ratting']}');
+                                                                  }),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      left: 5,
+                                                      bottom: 10,
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+                                                          width: 45,
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  Colors.green,
+                                                              border: Border.all(
+                                                                  color: Colors
+                                                                      .green),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15)),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(3.0),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceEvenly,
+                                                              children: [
+                                                                Text(
+                                                                  "${getaverageRtings.toString() != 'NaN' ? getaverageRtings.toStringAsFixed(1) : '0'}",
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        13,
+                                                                  ),
+                                                                ),
+                                                                const Icon(
+                                                                  Icons.star,
+                                                                  size: 12,
+                                                                  color: Colors
+                                                                      .white,
+                                                                )
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ],
-                                                      ),
+                                                        ),
+                                                        // const SizedBox(
+                                                        //   width: 10,
+                                                        // ),
+                                                        Row(
+                                                          children: [
+                                                            const Icon(Icons
+                                                                .group_outlined),
+                                                            const SizedBox(
+                                                              width: 7,
+                                                            ),
+                                                            Text(
+                                                              '(Coming from ${widget.data['ratting'].length} reviews)',
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                );
-                                              },
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    // const Divider(
+                                    //     thickness: 1, height: 50, color: Colors.black),
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            15, 10, 15, 0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            // Row(
+                                            //   children: const [
+                                            //     Text(
+                                            //       'PRODUCT TYPE',
+                                            //       style: TextStyle(
+                                            //         color: Colors.black,
+                                            //         fontSize: 15,
+                                            //         fontWeight:
+                                            //             FontWeight.bold,
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                            // const SizedBox(
+                                            //   height: 10,
+                                            // ),
+                                            // Row(
+                                            //   children: [
+                                            //     Text(
+                                            //       widget.data['type'],
+                                            //       // 'Jeans',
+                                            //       style: const TextStyle(
+                                            //         color: Colors.black,
+                                            //         fontSize: 15,
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                            // const SizedBox(
+                                            //   height: 25,
+                                            // ),
+                                            // Row(
+                                            //   children: const [
+                                            //     Text(
+                                            //       'SELLER TYPE',
+                                            //       style: TextStyle(
+                                            //         color: Colors.black,
+                                            //         fontSize: 15,
+                                            //         fontWeight:
+                                            //             FontWeight.bold,
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                            // const SizedBox(
+                                            //   height: 10,
+                                            // ),
+                                            // Row(
+                                            //   children: const [
+                                            //     Text(
+                                            //       // data['sellerType'],
+                                            //       // 'Wholesaler',
+                                            //       style: TextStyle(
+                                            //         color: Colors.black,
+                                            //         fontSize: 15,
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                            // const SizedBox(
+                                            //   height: 25,
+                                            // ),
+                                            // Row(
+                                            //   children:  [
+                                            //     Container(
+                                            //       child: Text(
+                                            //         'TITLE',
+                                            //         style: TextStyle(
+                                            //           color: Colors.black,
+                                            //           fontSize: 15,
+                                            //           fontWeight:
+                                            //               FontWeight.bold,
+                                            //         ),
+                                            //       ),
+                                            //     ),
+
+                                            //   ],
+                                            // ),
+                                            const SizedBox(
+                                              height: 10,
                                             ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      // const Divider(
-                                      //     thickness: 1, height: 50, color: Colors.black),
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              15, 10, 15, 0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              // Row(
-                                              //   children: const [
-                                              //     Text(
-                                              //       'PRODUCT TYPE',
-                                              //       style: TextStyle(
-                                              //         color: Colors.black,
-                                              //         fontSize: 15,
-                                              //         fontWeight:
-                                              //             FontWeight.bold,
-                                              //       ),
-                                              //     ),
-                                              //   ],
-                                              // ),
-                                              // const SizedBox(
-                                              //   height: 10,
-                                              // ),
-                                              // Row(
-                                              //   children: [
-                                              //     Text(
-                                              //       widget.data['type'],
-                                              //       // 'Jeans',
-                                              //       style: const TextStyle(
-                                              //         color: Colors.black,
-                                              //         fontSize: 15,
-                                              //       ),
-                                              //     ),
-                                              //   ],
-                                              // ),
-                                              // const SizedBox(
-                                              //   height: 25,
-                                              // ),
-                                              // Row(
-                                              //   children: const [
-                                              //     Text(
-                                              //       'SELLER TYPE',
-                                              //       style: TextStyle(
-                                              //         color: Colors.black,
-                                              //         fontSize: 15,
-                                              //         fontWeight:
-                                              //             FontWeight.bold,
-                                              //       ),
-                                              //     ),
-                                              //   ],
-                                              // ),
-                                              // const SizedBox(
-                                              //   height: 10,
-                                              // ),
-                                              // Row(
-                                              //   children: const [
-                                              //     Text(
-                                              //       // data['sellerType'],
-                                              //       // 'Wholesaler',
-                                              //       style: TextStyle(
-                                              //         color: Colors.black,
-                                              //         fontSize: 15,
-                                              //       ),
-                                              //     ),
-                                              //   ],
-                                              // ),
-                                              // const SizedBox(
-                                              //   height: 25,
-                                              // ),
-                                              // Row(
-                                              //   children:  [
-                                              //     Container(
-                                              //       child: Text(
-                                              //         'TITLE',
-                                              //         style: TextStyle(
-                                              //           color: Colors.black,
-                                              //           fontSize: 15,
-                                              //           fontWeight:
-                                              //               FontWeight.bold,
-                                              //         ),
-                                              //       ),
-                                              //     ),
-
-                                              //   ],
-                                              // ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                children: const [
-                                                  Text(
-                                                    'Product Details',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                            Row(
+                                              children: const [
+                                                Text(
+                                                  'Product Details',
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                  SizedBox(
-                                                    width: 8,
-                                                  ),
-                                                  Icon(
-                                                    Icons.book_outlined,
-                                                    size: 18,
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 25,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
-                                                          children: const [
-                                                            Text(
-                                                              'MATERIAL',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 2,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Expanded(
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    widget.data[
-                                                                        'material'],
-                                                                    // 'Denim',
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          14,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const Divider(
-                                                          thickness: 1,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 18,
-                                                  ),
-                                                  Expanded(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
-                                                          children: const [
-                                                            Text(
-                                                              'COLOR',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 2,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Expanded(
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    widget.data[
-                                                                        'color'],
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          14,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const Divider(
-                                                          thickness: 1,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
-                                                          children: const [
-                                                            Text(
-                                                              'SIZE',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 2,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Expanded(
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    widget.data[
-                                                                            'size']
-                                                                        .toUpperCase(),
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          14,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const Divider(
-                                                          thickness: 1,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 18,
-                                                  ),
-                                                  Expanded(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
-                                                          children: const [
-                                                            Text(
-                                                              'Minimum Quantity',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 2,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Expanded(
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    widget.data[
-                                                                        'minQty'],
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          14,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const Divider(
-                                                          thickness: 1,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-
-                                              const SizedBox(
-                                                height: 8,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
-                                                          children: const [
-                                                            Text(
-                                                              'Seller Name',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 2,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Expanded(
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    _productProvider
-                                                                            .sellerDetails[
-                                                                        'name'],
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          14,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const Divider(
-                                                          thickness: 1,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 18,
-                                                  ),
-                                                  Expanded(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
-                                                          children: const [
-                                                            Text(
-                                                              'Shop Name',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 2,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Expanded(
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    _productProvider
-                                                                            .sellerDetails[
-                                                                        'shop_name'],
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          14,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const Divider(
-                                                          thickness: 1,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-
-                                              const SizedBox(
-                                                height: 14,
-                                              ),
-                                              Row(
-                                                children: const [
-                                                  Text(
-                                                    'Description',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 2,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          widget.data[
-                                                              'description'],
-                                                          style:
-                                                              const TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 14,
-                                                          ),
-                                                        ),
-                                                        const Divider(
-                                                          thickness: 1,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 14,
-                                              ),
-                                              Row(
-                                                children: const [
-                                                  Text(
-                                                    'Address',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 2,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          _productProvider
-                                                                  .sellerDetails[
-                                                              'address'],
-                                                          style:
-                                                              const TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 14,
-                                                          ),
-                                                        ),
-                                                        const Divider(
-                                                          thickness: 1,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                               const SizedBox(
-                                                height: 10,
-                                              ),
-                                              // Row(
-                                              //   mainAxisAlignment:
-                                              //       MainAxisAlignment
-                                              //           .spaceBetween,
-                                              //   children: [
-                                              //     Text(
-                                              //       'Add Id: ${widget.data['postedAt']}',
-                                              //       style: TextStyle(
-                                              //         fontWeight:
-                                              //             FontWeight.bold,
-                                              //         fontSize: 10,
-                                              //         color: Colors.grey[400],
-                                              //       ),
-                                              //     ),
-                                              //     _loading
-                                              //         ? Container()
-                                              //         : TextButton(
-                                              //             onPressed: () {
-                                              //               reportAlertDialog(
-                                              //                   widget.data[
-                                              //                       'productId'],
-                                              //                   widget.data[
-                                              //                       'reportProduct'],
-                                              //                   context);
-                                              //             },
-                                              //             child: const Text(
-                                              //               'Report this product',
-                                              //               style: TextStyle(
-                                              //                   fontSize: 12,
-                                              //                   color: Colors
-                                              //                       .blue,),
-                                              //             ),
-                                              //           ),
-                                              //   ],
-                                              // ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-
-                                      // const Divider(
-                                      //     thickness: 1, height: 50, color: Colors.black),
-
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                          // border: Border.all(
-                                          //   color: Colors.black,
-                                          // ),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10),
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                            left: 10,
-                                            right: 10,
-                                            top: 10,
-                                            bottom: 10,
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              // const SizedBox(
-                                              //   height: 15,
-                                              // ),
-                                              Row(
-                                                children: [
-                                                  CircleAvatar(
-                                                    radius: 30,
-                                                    backgroundColor:
-                                                        Colors.grey[100],
-                                                    child: const Icon(
-                                                      CupertinoIcons.person_alt,
-                                                      color: Colors.grey,
-                                                      size: 40,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Expanded(
-                                                    child: ListTile(
-                                                      title: Text(
-                                                        _productProvider
-                                                            .sellerDetails[
-                                                                'name']
-                                                            .toUpperCase(),
-                                                        style: const TextStyle(
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15,
-                                                        ),
-                                                      ),
-                                                      subtitle: Row(
-                                                        children: [
-                                                          const Icon(
-                                                            Icons
-                                                                .store_mall_directory_outlined,
-                                                            size: 14,
-                                                          ),
-                                                          const SizedBox(
-                                                            width: 2,
-                                                          ),
+                                                ),
+                                                SizedBox(
+                                                  width: 8,
+                                                ),
+                                                Icon(
+                                                  Icons.book_outlined,
+                                                  size: 18,
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 25,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: const [
                                                           Text(
-                                                            _productProvider
-                                                                    .sellerDetails[
-                                                                'seller_type'],
-                                                            style:
-                                                                const TextStyle(
+                                                            'MATERIAL',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 14,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
-                                                              fontSize: 12,
                                                             ),
                                                           ),
                                                         ],
                                                       ),
-                                                      trailing: IconButton(
-                                                        onPressed: () {
-                                                          Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  const SellerDetails(),
-                                                            ),
-                                                          );
-                                                        },
-                                                        icon: const Icon(Icons
-                                                            .arrow_forward_ios),
-                                                        iconSize: 15,
-                                                        color: Colors.black,
+                                                      const SizedBox(
+                                                        height: 2,
                                                       ),
-                                                    ),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  widget.data[
+                                                                      'material'],
+                                                                  // 'Denim',
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        13,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const Divider(
+                                                        thickness: 1,
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 18,
+                                                ),
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: const [
+                                                          Text(
+                                                            'COLOR',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 2,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  widget.data[
+                                                                      'color'],
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        13,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const Divider(
+                                                        thickness: 1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: const [
+                                                          Text(
+                                                            'SIZE',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 3,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  widget.data[
+                                                                          'size']
+                                                                      .toUpperCase(),
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        13,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const Divider(
+                                                        thickness: 1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 18,
+                                                ),
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: const [
+                                                          Text(
+                                                            'MIN QUANTITY',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 3,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  widget.data[
+                                                                      'minQty'],
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        13,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const Divider(
+                                                        thickness: 1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: const [
+                                                          Text(
+                                                            'SELLER NAME',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 3,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  _productProvider
+                                                                          .sellerDetails[
+                                                                      'name'],
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        13,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const Divider(
+                                                        thickness: 1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 18,
+                                                ),
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: const [
+                                                          Text(
+                                                            'SHOP NAME',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 2,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  _productProvider
+                                                                          .sellerDetails[
+                                                                      'shop_name'],
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        13,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const Divider(
+                                                        thickness: 1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+
+                                            const SizedBox(
+                                              height: 14,
+                                            ),
+                                            Row(
+                                              children: const [
+                                                Text(
+                                                  'DESCRIPTION',
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 2,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        widget.data[
+                                                            'description'],
+                                                        style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13,
+                                                        ),
+                                                      ),
+                                                      const Divider(
+                                                        thickness: 1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 14,
+                                            ),
+                                            Row(
+                                              children: const [
+                                                Text(
+                                                  'ADDRESS',
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 2,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        _productProvider
+                                                                .sellerDetails[
+                                                            'address'],
+                                                        style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13,
+                                                        ),
+                                                      ),
+                                                      const Divider(
+                                                        thickness: 1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            // const SizedBox(
+                                            //   height: 10,
+                                            // ),
+                                            // Row(
+                                            //   mainAxisAlignment:
+                                            //       MainAxisAlignment
+                                            //           .spaceBetween,
+                                            //   children: [
+                                            //     Text(
+                                            //       'Add Id: ${widget.data['postedAt']}',
+                                            //       style: TextStyle(
+                                            //         fontWeight:
+                                            //             FontWeight.bold,
+                                            //         fontSize: 10,
+                                            //         color: Colors.grey[400],
+                                            //       ),
+                                            //     ),
+                                            //     _loading
+                                            //         ? Container()
+                                            //         : TextButton(
+                                            //             onPressed: () {
+                                            //               reportAlertDialog(
+                                            //                   widget.data[
+                                            //                       'productId'],
+                                            //                   widget.data[
+                                            //                       'reportProduct'],
+                                            //                   context);
+                                            //             },
+                                            //             child: const Text(
+                                            //               'Report this product',
+                                            //               style: TextStyle(
+                                            //                   fontSize: 12,
+                                            //                   color: Colors
+                                            //                       .blue,),
+                                            //             ),
+                                            //           ),
+                                            //   ],
+                                            // ),
+                                          ],
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Center(
-                                        child: _productProvider
-                                                    .productData['sellerUid'] !=
-                                                _service.user!.uid
-                                            ? const Text(
-                                                'CHAT WITH SELLER FOR MORE DETAILS',
-                                                style: TextStyle(
-                                                  color: Colors.black38,
-                                                  fontSize: 12,
-                                                  fontStyle: FontStyle.italic,
-                                                ),
-                                              )
-                                            : const Text(''),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                          // ProductCard(data: widget.data, formattedPrice: '',),
-                          // SizedBox(height: 60,),
-
-                          // _loading
-                          //     ? Container()
-                          //     : InkWell(
-                          //         onTap: () {
-                          //           deleteProductAlertDialog(
-                          //               widget.data['productId'], context);
-                          //         },
-                          //         child: Container(
-                          //             // width: 100,
-                          //             // margin: const EdgeInsets.all(15.0),
-                          //             padding: const EdgeInsets.all(10.0),
-                          //             decoration: BoxDecoration(
-                          //                 border: Border.all(
-                          //                     color: Colors.blueAccent),
-                          //                 borderRadius:
-                          //                     BorderRadius.circular(15)),
-                          //             child: Row(
-                          //               mainAxisAlignment:
-                          //                   MainAxisAlignment.center,
-                          //               crossAxisAlignment:
-                          //                   CrossAxisAlignment.center,
-                          //               children: const [
-                          //                 Icon(
-                          //                   Icons.delete,
-                          //                   color: Colors.red,
-                          //                 ),
-                          //                 SizedBox(
-                          //                   width: 10,
-                          //                 ),
-                          //                 Text(
-                          //                   'Delete',
-                          //                   style: TextStyle(
-                          //                       color: Colors.black,
-                          //                       fontSize: 16),
-                          //                 ),
-                          //               ],
-                          //             )),
-                          //       ),
-
-                          Container(
-                            color: Colors.white,
-                            child: Row(
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsets.all(12.0),
-                                  child: Text(
-                                    'Related Products',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
                                     ),
+
+                                    // const Divider(
+                                    //     thickness: 1, height: 50, color: Colors.black),
+
+                                    const SizedBox(
+                                      height: 17,
+                                    ),
+
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        // border: Border.all(
+                                        //   color: Colors.black,
+                                        // ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                          top: 10,
+                                          bottom: 10,
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            // const SizedBox(
+                                            //   height: 15,
+                                            // ),
+                                            Row(
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: 30,
+                                                  backgroundColor:
+                                                      Colors.grey[100],
+                                                  child: const Icon(
+                                                    CupertinoIcons.person_alt,
+                                                    color: Colors.grey,
+                                                    size: 40,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Expanded(
+                                                  child: ListTile(
+                                                    title: Text(
+                                                      _productProvider
+                                                          .sellerDetails['name']
+                                                          .toUpperCase(),
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 15,
+                                                      ),
+                                                    ),
+                                                    subtitle: Row(
+                                                      children: [
+                                                        const Icon(
+                                                          Icons
+                                                              .store_mall_directory_outlined,
+                                                          size: 14,
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Text(
+                                                          _productProvider
+                                                                  .sellerDetails[
+                                                              'seller_type'],
+                                                          style:
+                                                              const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    trailing: IconButton(
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const SellerDetails(),
+                                                          ),
+                                                        );
+                                                      },
+                                                      icon: const Icon(Icons
+                                                          .arrow_forward_ios),
+                                                      iconSize: 15,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    // const SizedBox(
+                                    //   height: 10,
+                                    // ),
+                                    Center(
+                                      child: _productProvider
+                                                  .productData['sellerUid'] !=
+                                              _service.user!.uid
+                                          ? const Text(
+                                              'CHAT WITH SELLER FOR MORE DETAILS',
+                                              style: TextStyle(
+                                                color: Colors.black38,
+                                                fontSize: 12,
+                                                fontStyle: FontStyle.italic,
+                                              ),
+                                            )
+                                          : const Text(''),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                        // ProductCard(data: widget.data, formattedPrice: '',),
+                        // SizedBox(height: 60,),
+
+                        // _loading
+                        //     ? Container()
+                        //     : InkWell(
+                        //         onTap: () {
+                        //           deleteProductAlertDialog(
+                        //               widget.data['productId'], context);
+                        //         },
+                        //         child: Container(
+                        //             // width: 100,
+                        //             // margin: const EdgeInsets.all(15.0),
+                        //             padding: const EdgeInsets.all(10.0),
+                        //             decoration: BoxDecoration(
+                        //                 border: Border.all(
+                        //                     color: Colors.blueAccent),
+                        //                 borderRadius:
+                        //                     BorderRadius.circular(15)),
+                        //             child: Row(
+                        //               mainAxisAlignment:
+                        //                   MainAxisAlignment.center,
+                        //               crossAxisAlignment:
+                        //                   CrossAxisAlignment.center,
+                        //               children: const [
+                        //                 Icon(
+                        //                   Icons.delete,
+                        //                   color: Colors.red,
+                        //                 ),
+                        //                 SizedBox(
+                        //                   width: 10,
+                        //                 ),
+                        //                 Text(
+                        //                   'Delete',
+                        //                   style: TextStyle(
+                        //                       color: Colors.black,
+                        //                       fontSize: 16),
+                        //                 ),
+                        //               ],
+                        //             )),
+                        //       ),
+
+                        Container(
+                          color: Colors.white,
+                          child: Row(
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: Text(
+                                  'Related Products',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          const ProductList(
-                            proScreen: true,
-                          ),
-                          const SizedBox(
-                            height: 100,
-                          ),
-                        ],
-                      ),
+                        ),
+                        const ProductList(
+                          proScreen: true,
+                        ),
+                        const SizedBox(
+                          height: 100,
+                        ),
+                      ],
                     ),
                   )
                 : Container(
@@ -2720,19 +2732,25 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Are you sure? You want to delete the product?',style: TextStyle(
+            title: const Text(
+              'Are you sure? You want to delete the product?',
+              style: TextStyle(
                 color: Colors.black,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-              ),),
+              ),
+            ),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0)), //this right here
-            content: const Text('The deletion of the product is Irreversible',style: TextStyle(
+            content: const Text(
+              'The deletion of the product is Irreversible',
+              style: TextStyle(
                 color: Colors.black,
                 fontSize: 14,
-              ),),
+              ),
+            ),
             actions: [
-               TextButton(
+              TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -2764,7 +2782,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
-             
             ],
           );
         });

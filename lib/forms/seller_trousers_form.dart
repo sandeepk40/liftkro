@@ -43,7 +43,6 @@ class _SellerTrousersFormState extends State<SellerTrousersForm> {
   var _index = 0;
 
   validate(CategoryProvider provider) {
-
     //and if
     // if (provider.urlList.isNotEmpty) {
     //should have an image
@@ -51,7 +50,7 @@ class _SellerTrousersFormState extends State<SellerTrousersForm> {
       'category': provider.selectedCategory,
       'productName': _brandController.text,
       'size': _sizeController.text,
-      'type':_typeController.text,
+      'type': _typeController.text,
       'fabric': _materialController.text,
       'minQty': _minQtyController.text,
       'color': _colorController.text,
@@ -60,7 +59,7 @@ class _SellerTrousersFormState extends State<SellerTrousersForm> {
       'sellerUid': _service.user?.uid,
       'images': productImageList, //should be a list
       'postedAt': DateTime.now().microsecondsSinceEpoch,
-      'favourites':[],
+      'favourites': [],
     });
     //once saved all data to provider,we need to check user contact details again
     //to confirm all the details are there ,so we need to goo to profile screen
@@ -82,538 +81,642 @@ class _SellerTrousersFormState extends State<SellerTrousersForm> {
   Widget build(BuildContext context) {
     var _catProvider = Provider.of<CategoryProvider>(context);
 
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(238, 242, 246,170),
-        iconTheme: const IconThemeData(
-          color: Colors.black,
-        ),
-        elevation: 0,
-        title: const Text(
-          'Add product details',
-          style: TextStyle(
+        appBar: AppBar(
+          backgroundColor: const Color.fromRGBO(238, 242, 246, 170),
+          iconTheme: const IconThemeData(
             color: Colors.black,
           ),
+          elevation: 0,
+          title: Text(
+            '${_catProvider.selectedCategory}',
+            style: const TextStyle(
+              
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
         ),
-        shape: Border(bottom: BorderSide(color: Colors.grey.shade300)),
-      ),
-      body: SafeArea(
-        child: Form(
+        body: Form(
           key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Center(
-                    child: Text(
-                      'TROUSERS',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  Divider(
-                    height: 10,
-                    thickness: 1,
-                    indent: 100,
-                    endIndent: 100,
-                    color: Colors.green[200],
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: _typeController,
-                    cursorColor: Colors.black,
-                    decoration:  InputDecoration(
-                      // labelText: 'Tap here to add jeans type'),
-                      labelText: 'Type*',
-                      helperText: 'Trouser/Wool-Trouser/Twill-Chinos/Linen...',
-                      labelStyle: const TextStyle(color: Colors.black),
-                      helperStyle: const TextStyle(color: Colors.black),
-                      errorStyle: const TextStyle(color: Colors.red),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10.0),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please complete required field';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: _brandController, //_brandController
-                    cursorColor: Colors.black,
-                    decoration: InputDecoration(
-                      //labelText: 'Tap here to add jeans type'),
-                      labelText: 'Brand*',
-                      helperText: 'Allen Solly/Arrow/Pantaloons',
-                      labelStyle: const TextStyle(color: Colors.black),
-                      helperStyle: const TextStyle(color: Colors.black),
-                      errorStyle: const TextStyle(color: Colors.red),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10.0),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please complete required field';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: _materialController, //_brandController
-                    cursorColor: Colors.black,
-                    //enabled: false,
-                    decoration: InputDecoration(
-                      //labelText: 'Tap here to add jeans type'),
-                      labelText: 'Material*',
-                      helperText: 'Cotton/Linen/Recycled-Wool...',
-                      labelStyle: const TextStyle(color: Colors.black),
-                      helperStyle: const TextStyle(color: Colors.black),
-                      errorStyle: const TextStyle(color: Colors.red),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10.0),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please complete required field';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: _colorController,
-                    cursorColor: Colors.black,
-                    decoration: InputDecoration(
-                      labelText: 'Color*',
-                      helperText: ('Navy-Blue/Black/Grey...'),
-                      labelStyle: const TextStyle(color: Colors.black),
-                      helperStyle: const TextStyle(color: Colors.black),
-                      errorStyle: const TextStyle(color: Colors.red),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10.0),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please complete required field';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: _sizeController,
-                    cursorColor: Colors.black,
-                    decoration: InputDecoration(
-                      labelText: 'Size*',
-                      helperText: ('S/M/L/XL/XXL...'),
-                      labelStyle: const TextStyle(color: Colors.black),
-                      helperStyle: const TextStyle(color: Colors.black),
-                      errorStyle: const TextStyle(color: Colors.red),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10.0),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please complete required field';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: _minQtyController,
-                    cursorColor: Colors.black,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: 'Min Qty*',
-                      helperText: ('One/Two/Three...'),
-                      labelStyle: const TextStyle(color: Colors.black),
-                      helperStyle: const TextStyle(color: Colors.black),
-                      errorStyle: const TextStyle(color: Colors.red),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10.0),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please complete required field';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: _priceController,
-                    cursorColor: Colors.black,
-                    keyboardType: TextInputType.number,
-                    decoration:  InputDecoration(
-                      prefixText: 'Rs-',
-                      labelText: 'Price*',
-                      helperText: ('Rs-499/999/1999...'),
-                      labelStyle: const TextStyle(color: Colors.black),
-                      helperStyle: const TextStyle(color: Colors.black),
-                      errorStyle: const TextStyle(color: Colors.red),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10.0),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please complete required field';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  TextFormField(
-                    controller: _desController,
-                    cursorColor: Colors.black,
-                    maxLength: 4000,
-                    minLines: 1,
-                    maxLines: 30,
-                    decoration:  InputDecoration(
-                      labelText: 'Description*',
-                      helperText: ('Coverings/Waist/Ankles/Divisions'),
-                      labelStyle: const TextStyle(color: Colors.black),
-                      helperStyle: const TextStyle(color: Colors.black),
-                      errorStyle: const TextStyle(color: Colors.red),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10.0),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please complete required field';
-                      }
-                      if (value.length < 10) {
-                        return 'Need atleast 10 characters';
-                      }
-                      return null;
-                    },
-                  ),
-                  previewImageVideo.isNotEmpty ? Container(
-                    height: 300,
-                    child: Stack(
-                      children: [
-                        Center(
-                          child: Stack(
-                            children: [
-                              Container(
-                                child: PhotoView(
-                                  backgroundDecoration: const BoxDecoration(
-                                    // color: Colors.white,
-                                  ),
-                                  imageProvider:
-                                  FileImage(
-                                      previewImageVideo[_index]),
-                                ),
-                              ),
-                              Positioned(
-                                right: 60,
-                                top: -12,
-                                child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        previewImageVideo
-                                            .removeAt(_index);
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.cancel,
-                                      color: Colors.black,
-                                    )),
-                              ),
-
-                            ],
-                          ),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFormField(
+                      controller: _typeController,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        // labelText: 'Tap here to add jeans type'),
+                        labelText: 'Type*',
+                        helperText:
+                            'Trouser/Wool-Trouser/Twill-Chinos/Linen...',
+                        labelStyle: const TextStyle(color: Colors.black),
+                        helperStyle: const TextStyle(color: Colors.black),
+                        errorStyle: const TextStyle(color: Colors.red),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 10.0),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
                         ),
-                        Positioned(
-                          bottom: 0.0,
-                          child: Container(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 12, right: 12),
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: previewImageVideo.length,
-                                itemBuilder:
-                                    (BuildContext context, int i) {
-                                  return InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        _index = i;
-                                      });
-                                    },
-                                    child: Container(
-                                      height: 70,
-                                      width: 60,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(
-                                            color: Colors.black38,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.red, width: .4),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please complete required field';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _brandController, //_brandController
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        //labelText: 'Tap here to add jeans type'),
+                        labelText: 'Brand*',
+                        helperText: 'Allen Solly/Arrow/Pantaloons',
+                        labelStyle: const TextStyle(color: Colors.black),
+                        helperStyle: const TextStyle(color: Colors.black),
+                        errorStyle: const TextStyle(color: Colors.red),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 10.0),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.red, width: .4),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please complete required field';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _materialController, //_brandController
+                      cursorColor: Colors.black,
+                      //enabled: false,
+                      decoration: InputDecoration(
+                        //labelText: 'Tap here to add jeans type'),
+                        labelText: 'Material*',
+                        helperText: 'Cotton/Linen/Recycled-Wool...',
+                        labelStyle: const TextStyle(color: Colors.black),
+                        helperStyle: const TextStyle(color: Colors.black),
+                        errorStyle: const TextStyle(color: Colors.red),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 10.0),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.red, width: .4),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please complete required field';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _colorController,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        labelText: 'Color*',
+                        helperText: ('Navy-Blue/Black/Grey...'),
+                        labelStyle: const TextStyle(color: Colors.black),
+                        helperStyle: const TextStyle(color: Colors.black),
+                        errorStyle: const TextStyle(color: Colors.red),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 10.0),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.red, width: .4),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please complete required field';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _sizeController,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        labelText: 'Size*',
+                        helperText: ('S/M/L/XL/XXL...'),
+                        labelStyle: const TextStyle(color: Colors.black),
+                        helperStyle: const TextStyle(color: Colors.black),
+                        errorStyle: const TextStyle(color: Colors.red),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 10.0),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.red, width: .4),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please complete required field';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _minQtyController,
+                      cursorColor: Colors.black,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'Min Qty*',
+                        helperText: ('One/Two/Three...'),
+                        labelStyle: const TextStyle(color: Colors.black),
+                        helperStyle: const TextStyle(color: Colors.black),
+                        errorStyle: const TextStyle(color: Colors.red),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 10.0),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.red, width: .4),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please complete required field';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _priceController,
+                      cursorColor: Colors.black,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        prefixText: 'Rs-',
+                        labelText: 'Price*',
+                        helperText: ('Rs-499/999/1999...'),
+                        labelStyle: const TextStyle(color: Colors.black),
+                        helperStyle: const TextStyle(color: Colors.black),
+                        errorStyle: const TextStyle(color: Colors.red),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 10.0),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.red, width: .4),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please complete required field';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+
+                    TextFormField(
+                      controller: _desController,
+                      cursorColor: Colors.black,
+                      maxLength: 4000,
+                      minLines: 1,
+                      maxLines: 30,
+                      decoration: InputDecoration(
+                        labelText: 'Description*',
+                        helperText: ('Coverings/Waist/Ankles/Divisions'),
+                        labelStyle: const TextStyle(color: Colors.black),
+                        helperStyle: const TextStyle(color: Colors.black),
+                        errorStyle: const TextStyle(color: Colors.red),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 10.0),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.red, width: .4),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: .4),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please complete required field';
+                        }
+                        if (value.length < 10) {
+                          return 'Need atleast 10 characters';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    previewImageVideo.isNotEmpty
+                        ? Container(
+                            height: 500,
+                            child: Stack(
+                              children: [
+                                Center(
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        child: PhotoView(
+                                          backgroundDecoration:
+                                              const BoxDecoration(
+                                                  // color: Colors.white,
+                                                  ),
+                                          imageProvider: FileImage(
+                                              previewImageVideo[_index]),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        right: 10,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              previewImageVideo
+                                                  .removeAt(_index);
+                                            });
+                                          },
+                                          icon: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              color: Colors.white70,
+                                            ),
+                                            child: const Icon(
+                                              Icons.clear,
+                                              color: Colors.black,
+                                            ),
                                           ),
-                                          borderRadius:
-                                          const BorderRadius.all(
-                                              Radius.circular(10))),
-                                      child: Image.file(previewImageVideo[i]),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 0.0,
+                                  child: Container(
+                                    height: 80,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 12, right: 12),
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: previewImageVideo.length,
+                                        itemBuilder:
+                                            (BuildContext context, int i) {
+                                          return InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                _index = i;
+                                              });
+                                            },
+                                            child: Container(
+                                              height: 70,
+                                              width: 60,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  border: Border.all(
+                                                    color: Colors.black38,
+                                                  ),
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(10))),
+                                              child: Image.file(
+                                                  previewImageVideo[i]),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
-                                  );
-                                },
-                              ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                      ],
+                          )
+                        : Container(),
+                    const SizedBox(
+                      height: 80,
                     ),
-                  ) : Container(),
-                  SizedBox(height: 10,),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: NeumorphicButton(
-                        style: const NeumorphicStyle(
-                          color: Color.fromRGBO(9, 74, 157, 1),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Text(
-                            'Add Image',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          getImage(true, previewImageVideo.length);
-                        }
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  SizedBox(
-                    width: double.infinity,
-                    child: NeumorphicButton(
-                        style: const NeumorphicStyle(
-                          color: Color(0xFF0D47A1),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: isLoading ? Center(child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ),) :  Text(
-                            'Next',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate() == true && previewImageVideo.isNotEmpty) {
-                            uploadFile().then((value) =>{
-                              setState(() {
-                                productImageList = value;
-                              },),
-                              validate(_catProvider),
-                            });
-                          }else{
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Please complete required fields'),
-                              ),
-                            );
-                            setState(() {
-                              isLoading = false;
-                            });
-                          }
+                    //      Padding(
+                    //        padding: const EdgeInsets.only(top: 10,bottom: 10),
+                    //        child: Row(
+                    //         children: [
+                    //            Expanded(
+                    //           child: NeumorphicButton(
+                    //               style: const NeumorphicStyle(
+                    //             color: Colors.white,
+                    //             border: NeumorphicBorder(
+                    //               isEnabled: true,
+                    //               color: Colors.black,
+                    //             ),
+                    //           ),
+                    //           child: const Padding(
+                    //             padding: EdgeInsets.all(4.0),
+                    //             child: Text(
+                    //               'Add Image',
+                    //               textAlign: TextAlign.center,
+                    //               style: TextStyle(
+                    //                 color: Colors.black,
+                    //                 fontWeight: FontWeight.bold,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //               onPressed: () {
+                    //                 getImage(true, previewImageVideo.length);
+                    //               }
+                    //           ),
+                    //         ),
+                    //         const SizedBox(
+                    //   width: 10,
+                    // ),
+                    //         Expanded(
+                    //           child: NeumorphicButton(
+                    //               style: const NeumorphicStyle(
+                    //             color: Colors.white,
+                    //             border: NeumorphicBorder(
+                    //               isEnabled: true,
+                    //               color: Colors.black,
+                    //             ),
+                    //           ),
+                    //           child: Padding(
+                    //             padding: const EdgeInsets.all(4.0),
+                    //             child: isLoading
+                    //                 ? const Center(
+                    //                     child: CircularProgressIndicator(
+                    //                       color: Colors.black,
+                    //                     ),
+                    //                   )
+                    //                 : const Text(
+                    //                     'Next',
+                    //                     textAlign: TextAlign.center,
+                    //                     style: TextStyle(
+                    //                       color: Colors.black,
+                    //                       fontWeight: FontWeight.bold,
+                    //                     ),
+                    //                   ),
+                    //           ),
+                    //               onPressed: () {
+                    //                 if (_formKey.currentState!.validate() == true && previewImageVideo.isNotEmpty) {
+                    //                   uploadFile().then((value) =>{
+                    //                     setState(() {
+                    //                       productImageList = value;
+                    //                     },),
+                    //                     validate(_catProvider),
+                    //                   });
+                    //                 }else{
+                    //                   ScaffoldMessenger.of(context).showSnackBar(
+                    //                     const SnackBar(
+                    //                       content: Text('Please complete required fields'),
+                    //                     ),
+                    //                   );
+                    //                   setState(() {
+                    //                     isLoading = false;
+                    //                   });
+                    //                 }
 
-                          // validate(_catProvider);
-                          // print(_catProvider.dataToFirestore);
-                        }
-                    ),
-                  ),
-                ], // Video 13 31:20 fuel controller
+                    //                 // validate(_catProvider);
+                    //                 // print(_catProvider.dataToFirestore);
+                    //               }
+                    //           ),
+                    //         ),
+                    //         ],
+                    //        ),
+                    //      )
+                  ], // Video 13 31:20 fuel controller
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
+        bottomSheet: BottomAppBar(
+          color: Colors.grey[100],
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: NeumorphicButton(
+                      style: const NeumorphicStyle(
+                        color: Colors.white,
+                        border: NeumorphicBorder(
+                          isEnabled: true,
+                          color: Colors.black,
+                        ),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Text(
+                          'Add Image',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        getImage(true, previewImageVideo.length);
+                      }),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: NeumorphicButton(
+                      style: const NeumorphicStyle(
+                        color: Colors.white,
+                        border: NeumorphicBorder(
+                          isEnabled: true,
+                          color: Colors.black,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: isLoading
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.black,
+                                ),
+                              )
+                            : const Text(
+                                'Next',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate() == true &&
+                            previewImageVideo.isNotEmpty) {
+                          uploadFile().then((value) => {
+                                setState(
+                                  () {
+                                    productImageList = value;
+                                  },
+                                ),
+                                validate(_catProvider),
+                              });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please complete required fields'),
+                            ),
+                          );
+                          setState(() {
+                            isLoading = false;
+                          });
+                        }
+
+                        // validate(_catProvider);
+                        // print(_catProvider.dataToFirestore);
+                      }),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
+
   Future getImage(bool isgallery, index) async {
     PickedFile? galleryFile;
     if (isgallery) {
@@ -635,11 +738,13 @@ class _SellerTrousersFormState extends State<SellerTrousersForm> {
       }
     }
   }
+
   Future uploadFile() async {
     var getImageList = [];
     for (var i = 0; i < previewImageVideo.length; i++) {
       File file = File(previewImageVideo[i].path);
-      String imageName = 'productImage/${DateTime.now().microsecondsSinceEpoch}';
+      String imageName =
+          'productImage/${DateTime.now().microsecondsSinceEpoch}';
       String? downloadUrl;
       try {
         setState(() {
@@ -647,10 +752,9 @@ class _SellerTrousersFormState extends State<SellerTrousersForm> {
         });
         await FirebaseStorage.instance.ref(imageName).putFile(file);
         downloadUrl =
-        await FirebaseStorage.instance.ref(imageName).getDownloadURL();
+            await FirebaseStorage.instance.ref(imageName).getDownloadURL();
         if (downloadUrl != null) {
-          setState(() {
-          });
+          setState(() {});
         }
       } catch (e, s) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -662,9 +766,7 @@ class _SellerTrousersFormState extends State<SellerTrousersForm> {
           ),
         );
         print('Upload canceled error: $e\nStackTrace: $s');
-      } finally {
-
-      }
+      } finally {}
       setState(() {
         getImageList.add(downloadUrl);
         // isLoading = false;

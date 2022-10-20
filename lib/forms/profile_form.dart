@@ -461,7 +461,15 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: NeumorphicButton(
+                style: const NeumorphicStyle(
+                        color: Colors.white,
+                         border: NeumorphicBorder(
+                            isEnabled: true,
+                            color: Colors.black,
+                          ),
+                      ),
                 child: const Padding(
+                
                   padding: EdgeInsets.all(4.0),
                   child: Text(
                     'Next',

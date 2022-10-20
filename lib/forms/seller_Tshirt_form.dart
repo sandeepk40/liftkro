@@ -122,41 +122,26 @@ class _SellerTshirtFormState extends State<SellerTshirtForm> {
           color: Colors.black,
         ),
         elevation: 0.0,
-        title: const Text(
-          'Add product details',
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
-        shape: Border(bottom: BorderSide(color: Colors.grey.shade300)),
+        title: Text(
+                  '${_catProvider.selectedCategory}',
+                  style: const TextStyle(
+                   
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+     
       ),
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+            child: Container(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+               
                 children: [
-                  const Center(
-                    child: Text(
-                      'T-SHIRTS',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  Divider(
-                    height: 10,
-                    thickness: 1,
-                    indent: 100,
-                    endIndent: 100,
-                    color: Colors.green[200],
-                  ),
-                  const SizedBox(height: 20),
+                 
                   TextFormField(
                     controller: _typeController,
                     cursorColor: Colors.black,
@@ -510,7 +495,7 @@ class _SellerTshirtFormState extends State<SellerTshirtForm> {
                   // ),
                   SizedBox(height: 10,),
                   previewImageVideo.isNotEmpty ? Container(
-                    height: 300,
+                    height: 500,
                     child: Stack(
                       children: [
                         Center(
@@ -527,8 +512,8 @@ class _SellerTshirtFormState extends State<SellerTshirtForm> {
                                 ),
                               ),
                               Positioned(
-                                right: 60,
-                                top: -12,
+                                right: 10,
+                                
                                 child: IconButton(
                                     onPressed: () {
                                       setState(() {
@@ -536,10 +521,17 @@ class _SellerTshirtFormState extends State<SellerTshirtForm> {
                                             .removeAt(_index);
                                       });
                                     },
-                                    icon: Icon(
-                                      Icons.cancel,
-                                      color: Colors.black,
-                                    )),
+                                    icon: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            color: Colors.white70,
+                                          ),
+                                          child: const Icon(
+                                            Icons.clear,
+                                            color: Colors.black,
+                                          ),
+                                        ),),
                               ),
 
                             ],
@@ -548,7 +540,7 @@ class _SellerTshirtFormState extends State<SellerTshirtForm> {
                         Positioned(
                           bottom: 0.0,
                           child: Container(
-                            height: 50,
+                            height: 80,
                             width: MediaQuery.of(context).size.width,
                             child: Padding(
                               padding: const EdgeInsets.only(
@@ -586,78 +578,11 @@ class _SellerTshirtFormState extends State<SellerTshirtForm> {
                       ],
                     ),
                   ) : Container(),
-                  SizedBox(height: 10,),
+                 
                   const SizedBox(
-                    height: 10,
+                    height: 80,
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: NeumorphicButton(
-                        style: const NeumorphicStyle(
-                          color: Color.fromRGBO(9, 74, 157, 1),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Text(
-                            'Add Image',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          getImage(true, previewImageVideo.length);
-                        }
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  SizedBox(
-                    width: double.infinity,
-                    child: NeumorphicButton(
-                        style: const NeumorphicStyle(
-                          color: Color(0xFF0D47A1),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: isLoading ? Center(child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ),) :  Text(
-                            'Next',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        onPressed: ()async {
-                          if (_formKey.currentState!.validate() == true && previewImageVideo.isNotEmpty) {
-                            uploadFile().then((value) =>{
-                              setState(() {
-                                productImageList = value;
-                              },),
-                              // getProducts(),
-                              validate(_catProvider),
-                            });
-                          }else{
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Please complete required fields'),
-                              ),
-                            );
-                            // getProducts();
-                            setState(() {
-                              isLoading = false;
-                            });
-                          }
-
-                          // validate(_catProvider);
-                          // print(_catProvider.dataToFirestore);
-                        }
-                    ),
-                  ),
+                  
                 ], // Video 13 31:20 fuel controller
               ),
             ),
@@ -693,6 +618,95 @@ class _SellerTshirtFormState extends State<SellerTshirtForm> {
       //     ),
       //   ],
       // ),
+       bottomSheet: BottomAppBar(
+        color: Colors.grey[100],
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: NeumorphicButton(
+                    style: const NeumorphicStyle(
+                      color: Colors.white,
+                      border: NeumorphicBorder(
+                        isEnabled: true,
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Text(
+                        'Add Image',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      getImage(true, previewImageVideo.length);
+                    }),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: NeumorphicButton(
+                    style: const NeumorphicStyle(
+                      color: Colors.white,
+                      border: NeumorphicBorder(
+                        isEnabled: true,
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.black,
+                              ),
+                            )
+                          : const Text(
+                              'Next',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate() == true &&
+                          previewImageVideo.isNotEmpty) {
+                        uploadFile().then((value) => {
+                              setState(
+                                () {
+                                  productImageList = value;
+                                },
+                              ),
+                              validate(_catProvider),
+                            });
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please complete required fields'),
+                          ),
+                        );
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
+
+                      // validate(_catProvider);
+                      // print(_catProvider.dataToFirestore);
+                    }),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
   Future getImage(bool isgallery, index) async {
