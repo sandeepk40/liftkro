@@ -101,7 +101,9 @@ class _ChatCardState extends State<ChatCard> {
               child: Container(
                 width: 60,
                 height: 60,
-                child: Image.network(doc!['images'][0]),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(doc!['images'][0])),
               ),
             ),
             title: Text(

@@ -149,22 +149,22 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
                     contentPadding: const EdgeInsets.symmetric(
                         vertical: 10.0, horizontal: 10.0),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(30.0),
                       borderSide:
                       const BorderSide(color: Colors.white, width: .4),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(30.0),
                       borderSide:
                       const BorderSide(color: Colors.white, width: .4),
                     ),
                     errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(30.0),
                       borderSide:
                       const BorderSide(color: Colors.white, width: .4),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(30.0),
                       borderSide:
                       const BorderSide(color: Colors.white, width: .4),
                     ),
@@ -205,22 +205,22 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
                     // ),
                     // Border radius removed
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(30.0),
                       borderSide:
                       const BorderSide(color: Colors.white, width: .4),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(30.0),
                       borderSide:
                       const BorderSide(color: Colors.white, width: .4),
                     ),
                     errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(30.0),
                       borderSide:
                       const BorderSide(color: Colors.white, width: .4),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(30.0),
                       borderSide:
                       const BorderSide(color: Colors.white, width: .4),
                     ),
@@ -289,7 +289,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
+                      borderRadius: BorderRadius.circular(30.0),
                       side: const BorderSide(
                         color: Colors.black54,
                       ),

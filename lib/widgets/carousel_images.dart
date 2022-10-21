@@ -54,7 +54,8 @@ class _CarouselImagesState extends State<CarouselImages> {
   Widget buildIndicator() => AnimatedSmoothIndicator(
         onDotClicked: animateToSlide,
         effect: const ExpandingDotsEffect(
-            dotWidth: 15, activeDotColor: Colors.black,),
+           dotHeight: 10,
+            dotWidth: 10, activeDotColor: Colors.black,),
         activeIndex: activeIndex,
         count: urlImages.length,
       );

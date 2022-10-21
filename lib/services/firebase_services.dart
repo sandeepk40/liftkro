@@ -140,6 +140,33 @@ class FirebaseService {
     //   );
     // }
   }
+    updateBookmark(_isliked, productId, context) {
+    if (_isliked) {
+      products.doc(productId).update({
+        'favourites': FieldValue.arrayUnion([user!.uid])
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Added to bookmark',
+          ),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    } else {
+      products.doc(productId).update({
+        'favourites': FieldValue.arrayRemove([user!.uid]),
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Removed from bookmarks',
+          ),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+  }
 
   updateRating(ratingCount, productId, context) {
     // var addedRating = List.from(ratingCount)

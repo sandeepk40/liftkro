@@ -33,32 +33,35 @@ class _AccountScreenState extends State<AccountScreen> {
   String? shop;
   var imageFile;
   var totalLike = [];
-  var totalLikeCount=0;
+  var totalLikeCount = 0;
   @override
   void initState() {
     // TODO: implement initState
     getTotalLikes();
     super.initState();
   }
+
   @override
-
-  getTotalLikes(){
+  getTotalLikes() {
     _service.getUserData().then((value) => {
-      for(var i=0;i < value['productId'].length ;i++){
-        _service.getProductDetails(value['productId'][i]).then((value) => {
-         setState(() {
-        totalLike.add(value['likeCount'][0]['totalLike']);
-        })
-        }),
-        // print('snapshot data: ${value['productId'][i]}'),
-      }
-    });
-
+          for (var i = 0; i < value['productId'].length; i++)
+            {
+              _service
+                  .getProductDetails(value['productId'][i])
+                  .then((value) => {
+                        setState(() {
+                          totalLike.add(value['likeCount'][0]['totalLike']);
+                        })
+                      }),
+              // print('snapshot data: ${value['productId'][i]}'),
+            }
+        });
   }
+
   Widget build(BuildContext context) {
     var _productProvider = Provider.of<ProductProvider>(context);
     var data = _service.getUserData();
-    for(var i=0;i< totalLike.length;i++){
+    for (var i = 0; i < totalLike.length; i++) {
       totalLikeCount += int.parse(totalLike[i].toString());
     }
 
@@ -166,7 +169,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
-                        elevation: 20,
+                        elevation: 10,
                         child: Padding(
                           padding: const EdgeInsets.only(top: 30),
                           child: Column(
@@ -175,9 +178,13 @@ class _AccountScreenState extends State<AccountScreen> {
                                 child: Stack(
                                   children: [
                                     CircleAvatar(
-                                      radius: 50,
+                                      radius: 60,
                                       backgroundColor: Colors.black,
-                                      backgroundImage: snapshot.data?['profile'] != null ? NetworkImage(snapshot.data?['profile']) : NetworkImage('url'),
+                                      backgroundImage:
+                                          snapshot.data?['profile'] != null
+                                              ? NetworkImage(
+                                                  snapshot.data?['profile'])
+                                              : const NetworkImage('url'),
                                       // child:  snapshot.data?['profile'] != null ? Image.network(snapshot.data?['profile'],fit: BoxFit.f,):
                                       // Icon(
                                       //   CupertinoIcons.person_alt,
@@ -186,25 +193,25 @@ class _AccountScreenState extends State<AccountScreen> {
                                       // )
                                       // : Image.file(imageFile,fit: BoxFit.cover,),
                                     ),
-                                    Positioned(
-                                      bottom: 2,
-                                      right: 5,
-                                      child: CircleAvatar(
-                                        radius: 20,
-                                        backgroundColor: Colors.white,
-                                        child: CircleAvatar(
-                                          radius: 18,
-                                          backgroundColor: Colors.grey[300],
-                                          child: IconButton(
-                                            onPressed: (){
-                                              getImage(true);
-                                            },
-                                            icon: Icon(Icons.camera_enhance,size: 15),
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    // Positioned(
+                                    //   bottom: 2,
+                                    //   right: 5,
+                                    //   child: CircleAvatar(
+                                    //     radius: 20,
+                                    //     backgroundColor: Colors.white,
+                                    //     child: CircleAvatar(
+                                    //       radius: 18,
+                                    //       backgroundColor: Colors.grey[300],
+                                    //       child: IconButton(
+                                    //         onPressed: (){
+                                    //           getImage(true);
+                                    //         },
+                                    //         icon: Icon(Icons.camera_enhance,size: 15),
+                                    //         color: Colors.black,
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
@@ -229,25 +236,25 @@ class _AccountScreenState extends State<AccountScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '',
-                                    // '${snapshot.data?['seller_type'] ?? ""}',
+                                    '${snapshot.data?['seller_type'] ?? ""}',
                                     style: const TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 30, 20, 20),
                                 child: IntrinsicHeight(
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Column(
-                                        children:  [
+                                        children: const [
                                           Text(
-                                            "${snapshot.data?['productId'].length.toString()}",
+                                            "5.0",
                                             style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold),
@@ -256,6 +263,31 @@ class _AccountScreenState extends State<AccountScreen> {
                                             height: 5,
                                           ),
                                           Text(
+                                            'Rating',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                      const VerticalDivider(
+                                        indent: 12,
+                                        endIndent: 12,
+                                        color: Colors.black54,
+                                        thickness: 2,
+                                      ),
+                                      Column(
+                                        children: [
+                                          Text(
+                                            "${snapshot.data?['productId'].length.toString()}",
+                                            style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          const Text(
                                             'Uploads',
                                             style: TextStyle(
                                                 fontSize: 14,
@@ -270,17 +302,18 @@ class _AccountScreenState extends State<AccountScreen> {
                                         thickness: 2,
                                       ),
                                       Column(
-                                        children:  [
-                                          Text(totalLikeCount.toString(),
-                                            style: TextStyle(
+                                        children: [
+                                          Text(
+                                            totalLikeCount.toString(),
+                                            style: const TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 5,
                                           ),
-                                          Text(
+                                          const Text(
                                             'Likes',
                                             style: TextStyle(
                                               fontSize: 14,
@@ -297,12 +330,11 @@ class _AccountScreenState extends State<AccountScreen> {
                                 padding: const EdgeInsets.only(
                                     left: 20, right: 20, top: 20, bottom: 30),
                                 child: Row(
-                                  children:  [
+                                  children: [
                                     Expanded(
                                       child: Text(
                                         '${snapshot.data?['about'] ?? ""}',
                                         textAlign: TextAlign.center,
-
                                         style: const TextStyle(
                                           fontSize: 14,
                                           color: Colors.black,
@@ -323,114 +355,171 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const SizedBox(height: 30),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Phone:',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              '${snapshot.data?['mobile'] ?? ""}',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children:  [
-                            Text(
-                              'Shop Name:',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              '${snapshot.data?['shop_name'] ?? ""}',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Email:',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Container(
-                                width: 190,
-                                child: Text(
-                                  // 'mail',
-                                  '${snapshot.data?['email'] ?? ""}',
-                                  style: const TextStyle(
-                                    fontSize: 16,
+                    color: Colors.white,
+                    // decoration: const BoxDecoration(
+                    //   borderRadius: BorderRadius.all(
+                    //     Radius.circular(10.0),
+                    //   ),
+                    // ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Text(
+                                'Phone',
+                                style: TextStyle(
+                                    fontSize: 14,
                                     color: Colors.black,
-                                  ),
-                                  maxLines: 2,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                width: 90,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      ':  ${snapshot.data?['mobile'] ?? ""}',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Address:',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                // 'add',
-                                '${snapshot.data?['address'] ?? ""}',
-                                style: const TextStyle(
-                                  fontSize: 16,
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Shop Name',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                width: 53,
+                              ),
+                              const Text(
+                                ':  ',
+                                style: TextStyle(
+                                  fontSize: 14,
                                   color: Colors.black,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${snapshot.data?['shop_name'] ?? ""}',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Email',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                width: 95,
+                              ),
+                              const Text(
+                                ':  ',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      // 'mail',
+                                      '${snapshot.data?['email'] ?? ""}',
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                      ),
+                                      maxLines: 2,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            // crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text(
+                                'Address',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                width: 75.5,
+                              ),
+                               const Text(
+                                ':  ',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      // 'add',
+                                      '${snapshot.data?['address'] ?? ""}',
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -441,6 +530,7 @@ class _AccountScreenState extends State<AccountScreen> {
       ),
     );
   }
+
   bodyProgress() {
     return Container(
       child: new Stack(
@@ -453,8 +543,7 @@ class _AccountScreenState extends State<AccountScreen> {
             child: new Container(
               decoration: new BoxDecoration(
                   color: Colors.blue[200],
-                  borderRadius: new BorderRadius.circular(10.0)
-              ),
+                  borderRadius: new BorderRadius.circular(10.0)),
               width: 300.0,
               height: 200.0,
               alignment: AlignmentDirectional.center,
@@ -477,9 +566,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     child: new Center(
                       child: new Text(
                         "loading.. wait...",
-                        style: new TextStyle(
-                            color: Colors.white
-                        ),
+                        style: new TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
@@ -491,6 +578,7 @@ class _AccountScreenState extends State<AccountScreen> {
       ),
     );
   }
+
   SelectedItem(BuildContext context, value) {
     switch (value) {
       case 0:
@@ -504,6 +592,7 @@ class _AccountScreenState extends State<AccountScreen> {
         break;
     }
   }
+
   Future getImage(bool isgallery) async {
     PickedFile? galleryFile;
     bool isLoading = false;
@@ -516,19 +605,29 @@ class _AccountScreenState extends State<AccountScreen> {
         if (galleryFile != null) {
           try {
             Widget okButton = TextButton(
-              child: Text("Upload",style: TextStyle(color: Colors.green),),
-              onPressed: ()async {
+              child: const Text(
+                "Upload",
+                style: TextStyle(color: Colors.green),
+              ),
+              onPressed: () async {
                 File file = File(galleryFile!.path);
-                String imageName = 'profileImage/${DateTime.now().microsecondsSinceEpoch}';
+                String imageName =
+                    'profileImage/${DateTime.now().microsecondsSinceEpoch}';
                 String downloadUrl;
                 await FirebaseStorage.instance.ref(imageName).putFile(file);
-                downloadUrl = await FirebaseStorage.instance.ref(imageName).getDownloadURL();
-                _service.uploadProfile(downloadUrl,_service.user!.uid,context);
+                downloadUrl = await FirebaseStorage.instance
+                    .ref(imageName)
+                    .getDownloadURL();
+                _service.uploadProfile(
+                    downloadUrl, _service.user!.uid, context);
                 Navigator.of(context).pop();
               },
             );
             Widget cacelButton = TextButton(
-              child: Text("Cancel",style: TextStyle(color: Colors.red),),
+              child: const Text(
+                "Cancel",
+                style: TextStyle(color: Colors.red),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -538,7 +637,10 @@ class _AccountScreenState extends State<AccountScreen> {
               content: Container(
                   height: 200,
                   width: 300,
-                  child: Image.file(File(galleryFile.path),fit: BoxFit.cover,)),
+                  child: Image.file(
+                    File(galleryFile.path),
+                    fit: BoxFit.cover,
+                  )),
               actions: [
                 cacelButton,
                 okButton,
@@ -560,5 +662,4 @@ class _AccountScreenState extends State<AccountScreen> {
       }
     }
   }
-
 }

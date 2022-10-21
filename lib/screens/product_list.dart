@@ -23,7 +23,7 @@ class ProductList extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       color: const Color.fromRGBO(238, 242, 246, 170),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+        padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
         child: FutureBuilder<QuerySnapshot>(
           // future: _service.products.orderBy('postedAt').get(),
           future: _catProvider.selectedSubCategory == null
@@ -75,7 +75,7 @@ class ProductList extends StatelessWidget {
                       child: Text(
                         'New Trends',
                         style: GoogleFonts.lobsterTwo(
-                            fontWeight: FontWeight.bold, fontSize: 25,color: Colors.black),
+                            fontWeight: FontWeight.bold, fontSize: 25,color: Colors.black,),
                       ),
                     ),
                   ),
@@ -83,10 +83,10 @@ class ProductList extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const ScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
+                    maxCrossAxisExtent: 250,
                     childAspectRatio: 2/3.8 ,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 1,
+                    mainAxisSpacing: 0,
                   ),
                   itemCount: snapshot.data!.size,
                   itemBuilder: (BuildContext context, int i) {

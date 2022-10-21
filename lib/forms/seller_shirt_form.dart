@@ -81,41 +81,25 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
           color: Colors.black,
         ),
         elevation: 0,
-        title: const Text(
-          'Add product details',
-          style: TextStyle(
+        title: Text(
+          '${_catProvider.selectedCategory}',
+          style: const TextStyle(
+            
+            fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
         ),
-        shape: Border(bottom: BorderSide(color: Colors.grey.shade300)),
       ),
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+            child: Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Center(
-                    child: Text(
-                      'SHIRTS',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  Divider(
-                    height: 10,
-                    thickness: 1,
-                    indent: 100,
-                    endIndent: 100,
-                    color: Colors.green[200],
-                  ),
-                  const SizedBox(height: 20),
                   TextFormField(
                     controller: _typeController,
                     cursorColor: Colors.black,
@@ -131,22 +115,22 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
+                            const BorderSide(color: Colors.red, width: .4),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                     ),
                     validator: (value) {
@@ -172,22 +156,22 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
+                            const BorderSide(color: Colors.red, width: .4),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                     ),
                     validator: (value) {
@@ -212,22 +196,22 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
+                            const BorderSide(color: Colors.red, width: .4),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                     ),
                     validator: (value) {
@@ -252,22 +236,22 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
+                            const BorderSide(color: Colors.red, width: .4),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                     ),
                     validator: (value) {
@@ -292,22 +276,22 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
+                            const BorderSide(color: Colors.red, width: .4),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                     ),
                     validator: (value) {
@@ -333,22 +317,22 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
+                            const BorderSide(color: Colors.red, width: .4),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                     ),
                     validator: (value) {
@@ -375,22 +359,22 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
+                            const BorderSide(color: Colors.red, width: .4),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                     ),
                     validator: (value) {
@@ -403,7 +387,6 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
                   const SizedBox(
                     height: 20,
                   ),
-
                   TextFormField(
                     controller: _desController,
                     cursorColor: Colors.black,
@@ -413,7 +396,7 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
                     decoration: InputDecoration(
                       labelText: 'Description*',
                       helperText:
-                      ('Made with cotton for comfort and breathability...'),
+                          ('Made with cotton for comfort and breathability...'),
                       labelStyle: const TextStyle(color: Colors.black),
                       helperStyle: const TextStyle(color: Colors.black),
                       errorStyle: const TextStyle(color: Colors.red),
@@ -422,22 +405,22 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.red, width: .4),
+                            const BorderSide(color: Colors.red, width: .4),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                         borderSide:
-                        const BorderSide(color: Colors.black, width: .4),
+                            const BorderSide(color: Colors.black, width: .4),
                       ),
                     ),
                     validator: (value) {
@@ -453,152 +436,97 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
                   const SizedBox(
                     height: 30,
                   ),
-                  previewImageVideo.isNotEmpty ? Container(
-                    height: 300,
-                    child: Stack(
-                      children: [
-                        Center(
+                  previewImageVideo.isNotEmpty
+                      ? Container(
+                          height: 600,
                           child: Stack(
                             children: [
-                              Container(
-                                child: PhotoView(
-                                  backgroundDecoration: const BoxDecoration(
-                                    // color: Colors.white,
-                                  ),
-                                  imageProvider:
-                                  FileImage(
-                                      previewImageVideo[_index]),
+                              Center(
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      child: PhotoView(
+                                        backgroundDecoration:
+                                            const BoxDecoration(
+                                                // color: Colors.white,
+                                                ),
+                                        imageProvider: FileImage(
+                                            previewImageVideo[_index]),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: 10,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            previewImageVideo.removeAt(_index);
+                                          });
+                                        },
+                                        icon: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            color: Colors.white70,
+                                          ),
+                                          child: const Icon(
+                                            Icons.clear,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               Positioned(
-                                right: 60,
-                                top: -12,
-                                child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        previewImageVideo
-                                            .removeAt(_index);
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.cancel,
-                                      color: Colors.black,
-                                    )),
+                                bottom: 0.0,
+                                child: Container(
+                                  height: 80,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 12, right: 12),
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: previewImageVideo.length,
+                                      itemBuilder:
+                                          (BuildContext context, int i) {
+                                        return InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              _index = i;
+                                            });
+                                          },
+                                          child: Container(
+                                            height: 70,
+                                            width: 60,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                color: Colors.black38,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(
+                                                  10,
+                                                ),
+                                              ),
+                                            ),
+                                            child: Image.file(
+                                                previewImageVideo[i]),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
                               ),
-
                             ],
                           ),
-                        ),
-                        Positioned(
-                          bottom: 0.0,
-                          child: Container(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 12, right: 12),
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: previewImageVideo.length,
-                                itemBuilder:
-                                    (BuildContext context, int i) {
-                                  return InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        _index = i;
-                                      });
-                                    },
-                                    child: Container(
-                                      height: 70,
-                                      width: 60,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(
-                                            color: Colors.black38,
-                                          ),
-                                          borderRadius:
-                                          const BorderRadius.all(
-                                              Radius.circular(10))),
-                                      child: Image.file(previewImageVideo[i]),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ) : Container(),
-                  SizedBox(height: 10,),
+                        )
+                      : Container(),
                   const SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: NeumorphicButton(
-                        style: const NeumorphicStyle(
-                          color: Color.fromRGBO(9, 74, 157, 1),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Text(
-                            'Add Image',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          getImage(true, previewImageVideo.length);
-                        }
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  SizedBox(
-                    width: double.infinity,
-                    child: NeumorphicButton(
-                        style: const NeumorphicStyle(
-                          color: Color(0xFF0D47A1),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: isLoading ? Center(child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ),) :  Text(
-                            'Next',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate() == true && previewImageVideo.isNotEmpty) {
-                            uploadFile().then((value) =>{
-                              setState(() {
-                                productImageList = value;
-                              },),
-                              validate(_catProvider),
-                            });
-                          }else{
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Please complete required fields'),
-                              ),
-                            );
-                            setState(() {
-                              isLoading = false;
-                            });
-                          }
-
-                          // validate(_catProvider);
-                          // print(_catProvider.dataToFirestore);
-                        }
-                    ),
+                    height: 80,
                   ),
                 ], // Video 13 31:20 fuel controller
               ),
@@ -606,8 +534,98 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
           ),
         ),
       ),
+      bottomSheet: BottomAppBar(
+        color: Colors.grey[200],
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: NeumorphicButton(
+                    style: const NeumorphicStyle(
+                      color: Colors.white,
+                      border: NeumorphicBorder(
+                        isEnabled: true,
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Text(
+                        'Add Image',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      getImage(true, previewImageVideo.length);
+                    }),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: NeumorphicButton(
+                    style: const NeumorphicStyle(
+                      color: Colors.white,
+                      border: NeumorphicBorder(
+                        isEnabled: true,
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.black,
+                              ),
+                            )
+                          : const Text(
+                              'Next',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate() == true &&
+                          previewImageVideo.isNotEmpty) {
+                        uploadFile().then((value) => {
+                              setState(
+                                () {
+                                  productImageList = value;
+                                },
+                              ),
+                              validate(_catProvider),
+                            });
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please complete required fields'),
+                          ),
+                        );
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
+
+                      // validate(_catProvider);
+                      // print(_catProvider.dataToFirestore);
+                    }),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
+
   Future getImage(bool isgallery, index) async {
     PickedFile? galleryFile;
     if (isgallery) {
@@ -629,11 +647,13 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
       }
     }
   }
+
   Future uploadFile() async {
     var getImageList = [];
     for (var i = 0; i < previewImageVideo.length; i++) {
       File file = File(previewImageVideo[i].path);
-      String imageName = 'productImage/${DateTime.now().microsecondsSinceEpoch}';
+      String imageName =
+          'productImage/${DateTime.now().microsecondsSinceEpoch}';
       String? downloadUrl;
       try {
         setState(() {
@@ -641,10 +661,9 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
         });
         await FirebaseStorage.instance.ref(imageName).putFile(file);
         downloadUrl =
-        await FirebaseStorage.instance.ref(imageName).getDownloadURL();
+            await FirebaseStorage.instance.ref(imageName).getDownloadURL();
         if (downloadUrl != null) {
-          setState(() {
-          });
+          setState(() {});
         }
       } catch (e, s) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -656,8 +675,7 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
           ),
         );
         print('Upload canceled error: $e\nStackTrace: $s');
-      } finally {
-      }
+      } finally {}
       print('datatt: $downloadUrl');
       setState(() {
         getImageList.add(downloadUrl);
@@ -668,5 +686,4 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
     print('filedat: $getImageList');
     return getImageList;
   }
-
 }

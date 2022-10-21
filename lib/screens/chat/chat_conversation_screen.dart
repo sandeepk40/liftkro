@@ -68,54 +68,104 @@ class _ChatConversationsState extends State<ChatConversations> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.orange[50],
-                  border: const Border(
-                    top: BorderSide(color: Colors.black),
-                  ),
+                  color: Colors.grey[200],
+
+                  // border: const Border(
+                  //   top: BorderSide(color: Colors.black),
+                  // ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(
                     left: 12,
-                    right: 10,
+                    right: 12,
+                    top: 8,
+                    bottom: 8,
                   ),
                   child: Row(
                     children: [
                       Expanded(
-                        child: TextField(
-                          controller: chatController,
-                          style: const TextStyle(
-                            color: Colors.black,
+                        child: SizedBox(
+                          child: TextField(
+                            
+                            cursorColor: Colors.black,
+                            controller: chatController,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              height: 1,
+                              fontSize: 16,
+                            ),
+                            minLines: 1,
+                            maxLines: 5,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white60,
+                              isDense: true, // Added this
+                              contentPadding: EdgeInsets.all(12),
+                              hintText: 'Message',
+                              hintStyle: TextStyle(color: Colors.black),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 1),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 1),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 1),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 1),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              if (value.isNotEmpty) {
+                                setState(() {
+                                  _send = true;
+                                });
+                              } else {
+                                setState(() {
+                                  _send = false;
+                                });
+                              }
+                            },
+                            onSubmitted: (value) {
+                              if (value.isNotEmpty) {
+                                sendMessage(); //send message by enter
+                              }
+                            },
                           ),
-                          minLines: 1,
-                          maxLines: 5,
-                          decoration: const InputDecoration(
-                            hintText: 'Type Message',
-                            hintStyle: TextStyle(color: Colors.black),
-                            border: InputBorder.none,
-                          ),
-                          onChanged: (value) {
-                            if (value.isNotEmpty) {
-                              setState(() {
-                                _send = true;
-                              });
-                            } else {
-                              setState(() {
-                                _send = false;
-                              });
-                            }
-                          },
-                          onSubmitted: (value) {
-                            if (value.isNotEmpty) {
-                              sendMessage(); //send message by enter
-                            }
-                          },
                         ),
                       ),
-                      Visibility(
-                        visible: _send,
+                      SizedBox(
+                        width: 12,
+                      ),
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          color: Colors.black12,
+                          // border: const Border(
+                          //   top: BorderSide(color: Colors.black),
+                          // ),
+                        ),
                         child: IconButton(
                           onPressed: sendMessage,
-                          icon: const Icon(Icons.send, color: Colors.black),
+                          icon: const Icon(
+                            Icons.send,
+                            color: Colors.black,
+                            size: 18,
+                          ),
                         ),
                       ),
                     ],
