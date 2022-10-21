@@ -236,7 +236,6 @@ class _AccountScreenState extends State<AccountScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    
                                     '${snapshot.data?['seller_type'] ?? ""}',
                                     style: const TextStyle(
                                       fontSize: 16,
@@ -368,7 +367,6 @@ class _AccountScreenState extends State<AccountScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          
                           Row(
                             children: [
                               const Text(
@@ -413,13 +411,20 @@ class _AccountScreenState extends State<AccountScreen> {
                               const SizedBox(
                                 width: 53,
                               ),
+                              const Text(
+                                ':  ',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                              ),
                               Expanded(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      ':  ${snapshot.data?['shop_name'] ?? ""}',
+                                      '${snapshot.data?['shop_name'] ?? ""}',
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
                                         fontSize: 14,
@@ -446,6 +451,13 @@ class _AccountScreenState extends State<AccountScreen> {
                               const SizedBox(
                                 width: 95,
                               ),
+                              const Text(
+                                ':  ',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                              ),
                               Expanded(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -453,7 +465,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                   children: [
                                     Text(
                                       // 'mail',
-                                      ':  ${snapshot.data?['email'] ?? ""}',
+                                      '${snapshot.data?['email'] ?? ""}',
                                       style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.black,
@@ -481,6 +493,13 @@ class _AccountScreenState extends State<AccountScreen> {
                               const SizedBox(
                                 width: 75.5,
                               ),
+                               const Text(
+                                ':  ',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                              ),
                               Expanded(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -488,7 +507,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                   children: [
                                     Text(
                                       // 'add',
-                                      ':  ${snapshot.data?['address'] ?? ""}',
+                                      '${snapshot.data?['address'] ?? ""}',
                                       style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.black,
