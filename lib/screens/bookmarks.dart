@@ -167,102 +167,99 @@ class BookMarks extends StatelessWidget {
         Container(
           width: MediaQuery.of(context).size.width,
           color: Color.fromRGBO(238, 242, 246, 170),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-            child: StreamBuilder<QuerySnapshot>(
-              stream: _service.products
-                  .where('favourites', arrayContains: _service.user!.uid)
-                  .snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError) {
-                  return const Text('Something went wrong');
-                }
+          child: StreamBuilder<QuerySnapshot>(
+            stream: _service.products
+                .where('favourites', arrayContains: _service.user!.uid)
+                .snapshots(),
+            builder: (BuildContext context,
+                AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return const Text('Something went wrong');
+              }
 
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Padding(
-                    padding: EdgeInsets.only(left: 140, right: 140),
-                    child: Center(
-                      child: LinearProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                        backgroundColor: Colors.white,
-                      ),
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Padding(
+                  padding: EdgeInsets.only(left: 140, right: 140),
+                  child: Center(
+                    child: LinearProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                      backgroundColor: Colors.white,
                     ),
-                  );
-                }
-                if (snapshot.data!.docs.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          'No bookmarks yet',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MainScreen()));
-                          },
-                          style: ButtonStyle(
-                            backgroundColor:
-                            MaterialStateProperty.all(Colors.white),
-                          ),
-                          child: const Text(
-                            'Add Bookmarks',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                }
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Container(
-                    //   height: 56,
-                    //   child: const Padding(
-                    //     padding: EdgeInsets.all(8.0),
-                    //     child: Text(
-                    //       'Products added to favourites',
-                    //       style: TextStyle(
-                    //           fontWeight: FontWeight.bold, fontSize: 15),
-                    //     ),
-                    //   ),
-                    // ),
-                    Expanded(
-                      child: GridView.builder(
-                        gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          childAspectRatio: 2 / 3,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemCount: snapshot.data!.size,
-                        itemBuilder: (BuildContext context, int i) {
-                          var data = snapshot.data!.docs[i];
-                          var _price = int.parse(data['price']);
-                          String _formattedPrice =
-                              '₹ ${_format.format(_price)}';
-
-                          return ProductCard(
-                              data: data, formattedPrice: _formattedPrice);
-                        },
-                      ),
-                    ),
-                  ],
+                  ),
                 );
-              },
-            ),
+              }
+              if (snapshot.data!.docs.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'No bookmarks yet',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MainScreen()));
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                          MaterialStateProperty.all(Colors.white),
+                        ),
+                        child: const Text(
+                          'Add Bookmarks',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Container(
+                  //   height: 56,
+                  //   child: const Padding(
+                  //     padding: EdgeInsets.all(8.0),
+                  //     child: Text(
+                  //       'Products added to favourites',
+                  //       style: TextStyle(
+                  //           fontWeight: FontWeight.bold, fontSize: 15),
+                  //     ),
+                  //   ),
+                  // ),
+                  Expanded(
+                    child: GridView.builder(
+                      gridDelegate:
+                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 250,
+                        childAspectRatio: 2 / 3.8,
+                        crossAxisSpacing: 1,
+                        mainAxisSpacing: 0,
+                      ),
+                      itemCount: snapshot.data!.size,
+                      itemBuilder: (BuildContext context, int i) {
+                        var data = snapshot.data!.docs[i];
+                        var _price = int.parse(data['price']);
+                        String _formattedPrice =
+                            '₹ ${_format.format(_price)}';
+
+                        return ProductCard(
+                            data: data, formattedPrice: _formattedPrice);
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
         //   ],

@@ -438,7 +438,7 @@ class _SellerShirtFormState extends State<SellerShirtForm> {
                   ),
                   previewImageVideo.isNotEmpty
                       ? Container(
-                          height: 500,
+                          height: 600,
                           child: Stack(
                             children: [
                               Center(

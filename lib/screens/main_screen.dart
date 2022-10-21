@@ -6,7 +6,7 @@ import 'package:haggle/screens/account_screen.dart';
 
 import 'package:haggle/screens/chat/chat_screen.dart';
 import 'package:haggle/screens/home_screen.dart';
-import 'package:haggle/screens/myAd_Screen.dart';
+import 'package:haggle/screens/my_store.dart';
 import 'package:haggle/screens/sellItems/seller_category_list.dart';
 import 'package:provider/provider.dart';
 

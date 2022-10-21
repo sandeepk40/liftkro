@@ -454,7 +454,7 @@ class _FormsScreenState extends State<FormsScreen> {
               const SizedBox(height: 30),
               previewImageVideo.isNotEmpty
                   ? Container(
-                      height: 500,
+                      height: 600,
                       child: Stack(
                         children: [
                           Center(

@@ -239,7 +239,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             color: Colors.black,
             onPressed: () {
               setState(() {
-                _isLiked = !_isLiked;
+                // _isLiked = !_isLiked;
               });
               // _service.updateFavourite(_isLiked, data.id, context);
             },
@@ -254,7 +254,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 setState(() {
                   _isLiked = !_isLiked;
                 });
-                // _service.updateFavourite(_isLiked, data.id, context);
+                _service.updateBookmark(_isLiked,widget.data['productId'], context);
               },
             ),
           ),

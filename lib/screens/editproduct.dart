@@ -269,7 +269,7 @@ class _EditProductDetailsState extends State<EditProductDetails> {
                     //       }),
                     // ),
                     Container(
-                      height: 500,
+                      height: 600,
                       child: Stack(
                         children: [
                           Center(
@@ -1004,7 +1004,7 @@ class _EditProductDetailsState extends State<EditProductDetails> {
                         ? Padding(
                           padding: const EdgeInsets.only(bottom: 30,),
                           child: Container(
-                              height: 500,
+                              height: 600,
                               child: Stack(
                                 children: [
                                   Stack(

@@ -65,11 +65,11 @@ class MyAddScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: Color.fromRGBO(238, 242, 246, 170),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                color: Color.fromRGBO(238, 242, 246, 170),
                 child: FutureBuilder<QuerySnapshot>(
                   future: _service.products
                       .where('sellerUid', isEqualTo: _service.user!.uid)
@@ -167,11 +167,11 @@ class MyAddScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: Color.fromRGBO(238, 242, 246, 170),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                color: Color.fromRGBO(238, 242, 246, 170),
                 child: StreamBuilder<QuerySnapshot>(
                   stream: _service.products
                       .where('favourites', arrayContains: _service.user!.uid)
@@ -249,7 +249,7 @@ class MyAddScreen extends StatelessWidget {
                             const SliverGridDelegateWithMaxCrossAxisExtent(
                               maxCrossAxisExtent: 250,
                               childAspectRatio: 2 / 3.8,
-                              crossAxisSpacing: 8,
+                              crossAxisSpacing: 1,
                               mainAxisSpacing: 0,
                             ),
                             itemCount: snapshot.data!.size,
