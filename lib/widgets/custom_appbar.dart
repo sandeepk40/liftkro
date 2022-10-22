@@ -22,40 +22,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
   final FirebaseService _service = FirebaseService();
   final SearchService _search = SearchService();
   static List<Products> products = [];
+  RangeValues _currentRangeValues = const RangeValues(500, 10000);
+
   String address = '';
+  double value = 0;
   DocumentSnapshot? sellerDetails;
 
   @override
   void initState() {
-    _service.products.get().then(
-      (QuerySnapshot snapshot) {
-        products = [];
-        snapshot.docs.forEach(
-          (doc) {
-            setState(
-              () {
-                products.add(
-                  Products(
-                    document: doc,
-                    type: doc['type'],
-                    description: doc['description'],
-                    category: doc['category'],
-                    // subCat: doc['subCat'],
-                    // shopName: doc['shopName'],
-                    // material: doc['material'],
-                    productName: doc['productName'],
-                    // sellerType: doc['sellerType'],
-                    postedDate: doc['postedAt'],
-                    price: doc['price'],
-                  ),
-                );
-                getSellerAddress(doc['sellerUid']);
-              },
-            );
-          },
-        );
-      },
-    );
     super.initState();
   }
 
@@ -185,6 +159,46 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         readOnly: true,
                         autofocus: false,
                         onTap: () {
+                          _service.users.get().then((value) =>
+                              _service.products.get().then(
+                                    (QuerySnapshot snapshot) {
+                                  products = [];
+                                  print('iniside: ${snapshot.docs.length}');
+                                  for(var i=0 ;i<snapshot.docs.length;i++){
+                                    setState(
+                                          () {
+                                        print("price123: ${int.parse(snapshot.docs[i]['price'])} ${_currentRangeValues.start.toInt() <= int.parse(snapshot.docs[i]['price'])  && int.parse(snapshot.docs[i]['price']) <= _currentRangeValues.end.toInt()}");
+                                        // <= _currentRangeValues.start.toInt() || _currentRangeValues.end.toInt() <= int.parse(doc['price'])}");
+                                        if(_currentRangeValues.start.toInt() <= int.parse(snapshot.docs[i]['price'])  && int.parse(snapshot.docs[i]['price']) <= _currentRangeValues.end.toInt()) {
+                                        products.add(
+                                          Products(
+                                            document: snapshot.docs[i],
+                                            type: snapshot.docs[i]['type'],
+                                            description: snapshot.docs[i]['description'],
+                                            category: snapshot.docs[i]['category'],
+                                            // subCat: doc['subCat'],
+                                            shopName: value.docs[0]['shop_name'],
+                                            material: snapshot.docs[i]['material'],
+                                            productName: snapshot.docs[i]['productName'],
+                                            sellerType: value
+                                                .docs[0]['seller_type'],
+                                            postedDate: snapshot.docs[i]['postedAt'],
+                                            price: snapshot.docs[i]['price'],
+                                          ),
+                                        );
+                                        }
+                                        getSellerAddress(snapshot.docs[i]['sellerUid']);
+                                      },
+                                    );
+                                  }
+                                  snapshot.docs.forEach(
+                                        (doc) {
+
+                                      print('product detailsdd ${products.length}');
+                                        },
+                                  );
+                                },
+                              ));
                           _search.search(
                             context: context,
                             productsList: products,
@@ -196,7 +210,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         decoration: InputDecoration(
                           prefixIcon:
                               const Icon(Icons.search, color: Colors.black38),
-                          hintText: 'Search by Product/Shop/Brand/Category...',
+                          hintText: 'Search Product/Shop/Brand/Category...',
                           hintStyle: TextStyle(fontSize: 14),
                           contentPadding:
                               const EdgeInsets.only(left: 10, right: 10),
@@ -232,18 +246,23 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   const SizedBox(
                     width: 8,
                   ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    height: 20,
-                    width: 20,
-                    child: Image.asset(
-                      'assets/images/filter.png',
-                      height: 8,
-                      width: 8,
-                      // fit: BoxFit.contain,
+                  InkWell(
+                    onTap: (){
+                      dilog(context);
+                    },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      height: 20,
+                      width: 20,
+                      child: Image.asset(
+                        'assets/images/filter.png',
+                        height: 8,
+                        width: 8,
+                        // fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                   // const SizedBox(
@@ -257,4 +276,109 @@ class _CustomAppBarState extends State<CustomAppBar> {
       ),
     );
   }
+  dilog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(builder: (thisLowerContext, innerSetState) {
+            return Dialog(
+              child: Container(
+                  height: 180,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0,right: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(_currentRangeValues.start.round().toString(),
+                            ),
+                            Text(_currentRangeValues.end.round().toString()),
+                          ],
+                        ),
+                      ),
+
+                      RangeSlider(
+                        values: _currentRangeValues,
+                        min: 500,
+                        max: 10000,
+                        divisions: 10,
+                        labels: RangeLabels(
+                          _currentRangeValues.start.round().toString(),
+                          _currentRangeValues.end.round().toString(),
+                        ),
+
+                        onChanged: (RangeValues values) {
+                          // setState(() {
+                          innerSetState(() {
+                            _currentRangeValues = values;
+                          });
+                          // });
+                        },
+
+                      ),
+                      SizedBox(height: 30,),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(width: 140,),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(color: Colors.pink, fontSize: 16),
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+
+                            child: Text(
+                              'Apply',
+                              style: TextStyle(color: Colors.green, fontSize: 16),
+                            ),
+                          ),
+                        ],
+                      ),
+
+
+                    ],
+                  )
+              ),
+
+            );
+          });
+        });
+    // actions: [
+    //   TextButton(
+    //     onPressed: () {
+    //       Navigator.of(context).pop();
+    //     },
+    //     child: Text(
+    //       'Cancel',
+    //       style: TextStyle(color: Colors.pink, fontSize: 16),
+    //     ),
+    //   ),
+    //   TextButton(
+    //     onPressed: () {},
+    //
+    //     child: Text(
+    //       'Apply',
+    //       style: TextStyle(color: Colors.green, fontSize: 16),
+    //     ),
+    //   ),
+    // ],
+  }
+
 }
+
+

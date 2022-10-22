@@ -63,7 +63,7 @@ class _AccountScreenState extends State<AccountScreen> {
     }
 
     print('product data: ${totalLikeCount}');
-    return Scaffold(
+    return totalLikeCount != 0 ? Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(238, 242, 246, 170),
@@ -439,7 +439,7 @@ class _AccountScreenState extends State<AccountScreen> {
           );
         },
       ),
-    );
+    ) : Container(child: Center(child: CircularProgressIndicator(),));
   }
   bodyProgress() {
     return Container(

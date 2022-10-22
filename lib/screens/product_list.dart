@@ -10,8 +10,9 @@ import 'package:provider/provider.dart';
 import '../provider/category_provider.dart';
 
 class ProductList extends StatelessWidget {
-  const ProductList({Key? key, required this.proScreen}) : super(key: key);
+  const ProductList({Key? key, required this.proScreen,this.productDetails}) : super(key: key);
   final bool proScreen;
+  final  productDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class ProductList extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
         child: FutureBuilder<QuerySnapshot>(
           // future: _service.products.orderBy('postedAt').get(),
-          future: _catProvider.selectedSubCategory == null
+          future:  _catProvider.selectedSubCategory == null
               ? _service.products
               .orderBy('postedAt')
               .where('category', isEqualTo: _catProvider.selectedCategory)

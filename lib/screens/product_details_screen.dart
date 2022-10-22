@@ -15,6 +15,7 @@ import 'package:haggle/screens/product_list.dart';
 import 'package:haggle/screens/sellItems/product_by_category_screen.dart';
 import 'package:haggle/screens/sellItems/seller_screen.dart';
 import 'package:haggle/services/firebase_services.dart';
+import 'package:like_button/like_button.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
@@ -44,6 +45,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   bool _isLiked = false;
   var reviewsData = ['Excellent', 'Very Good', 'Good', 'Average', 'Poor'];
   var userIdList = [];
+  bool isliked = false;
+  // bool _isLiked = false;
+  var likeCount1;
+  double size = 20;
+  final animationDuration = const Duration(milliseconds: 200);
 
 
   // var data;
@@ -65,6 +71,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         setState(() {});
       })
     });
+    likeCount1 = widget.data['likeCount'][0]['totalLike'];
+    isliked = widget.data['likeCount'][0]['isLike'];
     super.initState();
   }
 
@@ -157,6 +165,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     var good = 0;
     var average = 0;
     var poor = 0;
+    print('chatMessageStream ${chatMessageStream}');
     if(widget.data['ratting'] != []) {
       for (var i = 0; i < widget.data['ratting'].length; i++) {
         print('indie: ');
@@ -311,6 +320,50 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 ),
                               ),
                               Positioned(
+                                right: 20,
+                                top: 10,
+                                child: LikeButton(
+                                  onTap: (isLiked1) async {
+                                    _service.getProductDetails(widget.data['productId']).then((value) =>
+                                    {
+                                      if(isliked || value['likeCount'][0]['isLike'] == true){
+                                        setState(() {
+                                          isliked = false;
+                                          likeCount1--;
+                                          _service.updateFavourite(likeCount1,isliked, value['productId'], context);
+                                        }),
+                                      }else if(value['likeCount'][0]['isLike'] == false){
+                                        setState(() {
+                                          isliked = true;
+                                          likeCount1++;
+                                          _service.updateFavourite(likeCount1,isliked, value['productId'], context);
+                                        }),
+                                      }
+                                    });
+                                  },
+                                  size: 40,
+                                  isLiked: isliked,
+                                  likeCount: likeCount1,
+                                  likeBuilder: (isLiked1) {
+                                    final color = isliked || isLiked1 ? Colors.red : Colors.grey;
+                                    return Icon(Icons.thumb_up, color: color, size: 26);},
+                                  animationDuration: animationDuration,
+                                  likeCountPadding: const EdgeInsets.only(left: 5),
+                                  countBuilder: (likeCount, isLiked, text) {
+                                    final color = isliked || isLiked  ? Colors.black : Colors.black38;
+                                    return Text(
+                                      "${isLiked ? likeCount1 : likeCount1}",
+                                      style: TextStyle(
+                                        color: color,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    );
+                                  },
+
+                                )
+                              ),
+                              Positioned(
                                 bottom: 0.0,
                                 child: Container(
                                   height: 50,
@@ -446,9 +499,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             _loading
                                 ? Container()
                                 : StreamBuilder<QuerySnapshot>(
-                                stream: chatMessageStream,
-                                builder: (context, AsyncSnapshot<QuerySnapshot>snapshot) {
-                                  print('all details: ${snapshot.data}');
+                                stream:  FirebaseFirestore.instance
+                                    .collection('products')
+                                    .where('productId', isEqualTo: widget.data['productId'])
+                                    .snapshots(),
+                                builder: (context, AsyncSnapshot<QuerySnapshot>snapshot1) {
+                                  print('all details: ${snapshot1.data}');
                                   return Container(
                                     padding: EdgeInsets.only(left: 10),
                                     child: InkWell(
@@ -467,6 +523,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                     15)),
                                           ),
                                           builder: (BuildContext context) {
+                                            print("data!.docs[0]['ratting'] ${widget.data['ratting']}");
                                             return Scaffold(
                                               appBar: AppBar(
                                                 backgroundColor:
@@ -586,7 +643,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                               SizedBox(
                                                                   height: 8),
                                                               Text(
-                                                                  '${snapshot.data!.docs[0]['ratting'] != [] ? snapshot.data!.docs[0]['ratting'].length : '0'} reviews',
+                                                                  '${widget.data['ratting'] != [] ? snapshot1.data!.docs[0]['ratting'].length : '0'} reviews',
                                                                   style: TextStyle(color: Colors.grey)),
                                                               SizedBox(
                                                                 width:
@@ -685,9 +742,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                       ),
                                                     ),
                                                     Visibility(
-                                                      visible: snapshot
-                                                          .data!
-                                                          .docs[0]['ratting'] !=
+                                                      visible: widget.data['ratting'] !=
                                                           []
                                                           ? true
                                                           : false,
@@ -698,14 +753,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                             .height /
                                                             1.5,
                                                         child: StreamBuilder<QuerySnapshot>(
-                                                        stream: chatMessageStream,
+                                                        stream:  FirebaseFirestore.instance
+                                                            .collection('products')
+                                                            .where('productId', isEqualTo: widget.data['productId'])
+                                                            .snapshots(),
                                                         builder: (context, AsyncSnapshot<QuerySnapshot>snapshot1) {
-                                                          // print('datatt: ${snapshot.data!.docs.length}');
-                                                       return   ListView.builder(
-                                                            itemCount: snapshot.data!.docs[0]['ratting'].length,
+                                                       return snapshot1.data == null ? Container(child: Center(child: CircularProgressIndicator(),),) : ListView.builder(
+                                                            itemCount: snapshot1.data!.docs[0]['ratting'].length,
                                                             itemBuilder: (contex, index) {
-                                                              rattingUserList.add(snapshot.data!.docs[0]['ratting'][index]['uid']);
-                                                              print('ratting12: ${snapshot.data!.docs[0]['ratting'].length}');
+                                                              rattingUserList.add(snapshot1.data!.docs[0]['ratting'][index]['uid']);
+                                                              print('ratting12: ${snapshot1.data!.docs[0]['ratting'].length}');
                                                               return Padding(
                                                                 padding: const EdgeInsets.only(left: 8.0),
                                                                 child: Column(
@@ -714,7 +771,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                   children: [
                                                                     Container(
                                                                       child: Text(
-                                                                        '${snapshot.data!.docs[0]['ratting'] != [] ? snapshot.data!.docs[0]['ratting'][index]['userName'] : '-'}',
+                                                                        '${snapshot1.data!.docs[0]['ratting'] != [] ? snapshot1.data!.docs[0]['ratting'][index]['userName'] : '-'}',
                                                                         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
                                                                       ),
                                                                     ),
@@ -734,7 +791,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                                       children: [
                                                                                         Text(
-                                                                                          snapshot.data!.docs[0]['ratting'][index]['rating'].toString(),
+                                                                                          snapshot1.data!.docs[0]['ratting'][index]['rating'].toString(),
                                                                                           style: TextStyle(color: Colors.white),
                                                                                         ),
                                                                                         Icon(
@@ -756,7 +813,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                                 SizedBox(
                                                                                   width: 10,
                                                                                 ),
-                                                                                Text("Posted on ${snapshot.data!.docs[0]['ratting'][index]['postedDate'].toString() != '' ? DateFormat('dd MMM, yyyy').format(DateTime.parse(snapshot.data!.docs[0]['ratting'][index]['postedDate'].toString())) : ''}", style: TextStyle(color: Colors.grey)),
+                                                                                Text("Posted on ${snapshot1.data!.docs[0]['ratting'][index]['postedDate'].toString() != '' ? DateFormat('dd MMM, yyyy').format(DateTime.parse(snapshot1.data!.docs[0]['ratting'][index]['postedDate'].toString())) : ''}", style: TextStyle(color: Colors.grey)),
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -764,7 +821,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                                 IconButton(
                                                                                     onPressed: () {
                                                                                       // print('getpresous: ${snapshot.data!.docs[1]['ratting']}');
-                                                                                      updateReviewDialog(snapshot.data!.docs[0]['ratting'][index],snapshot.data!.docs[0]['ratting'],context);
+                                                                                      updateReviewDialog(snapshot1.data!.docs[0]['ratting'][index],snapshot.data!.docs[0]['ratting'],context);
                                                                                     },
                                                                                     icon: Icon(
                                                                                       Icons.edit,
@@ -789,17 +846,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                                                     _service.products.doc(snapshot.data!.docs[0]['productId']).update({
                                                                                                       "ratting": FieldValue.arrayRemove([
                                                                                                         {
-                                                                                                          'postedDate': snapshot.data!.docs[0]['ratting'][index]['postedDate'],
-                                                                                                          'rating': snapshot.data!.docs[0]['ratting'][index]['rating'],
-                                                                                                          'review': snapshot.data!.docs[0]['ratting'][index]['review'],
-                                                                                                          'userName': snapshot.data!.docs[0]['ratting'][index]['userName'],
-                                                                                                          'uid':snapshot.data!.docs[0]['ratting'][index]['uid'],
+                                                                                                          'postedDate': snapshot1.data!.docs[0]['ratting'][index]['postedDate'],
+                                                                                                          'rating': snapshot1.data!.docs[0]['ratting'][index]['rating'],
+                                                                                                          'review': snapshot1.data!.docs[0]['ratting'][index]['review'],
+                                                                                                          'userName': snapshot1.data!.docs[0]['ratting'][index]['userName'],
+                                                                                                          'uid':snapshot1.data!.docs[0]['ratting'][index]['uid'],
                                                                                                         }
                                                                                                       ])
                                                                                                     });
                                                                                                     _service.products.doc('ratting').delete();
                                                                                                     Navigator.of(context).pop();
-                                                                                                    Navigator.of(context).pop();
+                                                                                                    // Navigator.of(context).pop();
                                                                                                     const SnackBar(
                                                                                                       content: Text(
                                                                                                         'Review Deleted Successfully !!',
@@ -839,7 +896,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                     ),
                                                                     Container(
                                                                       padding: EdgeInsets.only(left: 10.0),
-                                                                      child: Text(snapshot.data!.docs[0]['ratting'] != [] ? snapshot.data!.docs[0]['ratting'][index]['review'] : '0', style: TextStyle(color: Colors.black)),
+                                                                      child: Text(snapshot.data!.docs[0]['ratting'] != [] ? snapshot1.data!.docs[0]['ratting'][index]['review'] : '0', style: TextStyle(color: Colors.black)),
                                                                     ),
                                                                     SizedBox(
                                                                       height: 10,
@@ -855,7 +912,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                   ],
                                                                 ),
                                                               );
-                                                            });},
+                                                            }
+                                                            );
+                                                       },
                                                       ),
                                                     ),)
                                                   ],
@@ -868,14 +927,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                           .add),
                                                   onPressed:
                                                       () {
-
                                                         var dd;
                                                     if (userIdList.any((item) => rattingUserList.contains(item))) {
                                                       _service.getUserData().then((value) =>{
                                                         for(var i=0; i< snapshot.data!.docs.length;i++){
                                                           _service.products.doc(widget.data['productId']).get().then((value) => {
-                                                        print('ddajkljl ${value['ratting']}')
-
                                                       }),
                                                           if( snapshot.data!.docs[0]['ratting'][i]['uid'] == value['uid']){
                                                             setState(() {
@@ -1235,22 +1291,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 ],
                               ),
                             ),
-                            Container(
-                              child: Text(
-                                'Releted Products',
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 16),
-                              ),
-                            ),
-                            Container(
-                                height: 330,
-                                width: double.infinity,
-                                child: SingleChildScrollView(
-                                    scrollDirection:
-                                    Axis.horizontal,
-                                    child: ProductList(
-                                        proScreen: true))),
 
                             // const Divider(
                             //     thickness: 1, height: 50, color: Colors.black),
@@ -1581,7 +1621,109 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   TextStyle(color: Colors.blue),
                                 ))),
                       ),
+                      _loading
+                          ? Container()
+                          : Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                        child: Text(
+                              'Releted Products',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16),
+                        ),
+                      ),
+                              Container(
+                                  height: 330,
+                                  width: double.infinity,
+                                  child: SingleChildScrollView(
+                                      scrollDirection:
+                                      Axis.horizontal,
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        color: const Color.fromRGBO(238, 242, 246, 170),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                          child: FutureBuilder<QuerySnapshot>(
+                                            // future: _service.products.orderBy('postedAt').get(),
+                                            future: _catProvider.selectedSubCategory == null
+                                                ? _service.products
+                                                .orderBy('postedAt')
+                                                .where('category', isEqualTo: _catProvider.selectedCategory)
+                                                .get()
+                                                : _service.products
+                                                .orderBy('postedAt')
+                                                .where('subCat', isEqualTo: _catProvider.selectedSubCategory)
+                                                .get(),
+                                            builder:
+                                                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
 
+                                              if (snapshot.hasError) {
+                                                return const Text('Something went wrong');
+                                              }
+
+                                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                                return const Padding(
+                                                  padding: EdgeInsets.only(left: 140, right: 140),
+                                                  child: LinearProgressIndicator(
+                                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                                        Colors.black),
+                                                    backgroundColor: Color.fromRGBO(238, 242, 246,170),
+                                                  ),
+                                                );
+                                              }
+                                              if (snapshot.data!.docs.isEmpty) {
+                                                return Container(
+                                                  height: MediaQuery.of(context).size.height,
+                                                  child: const Center(
+                                                    child: Text(
+                                                      'No product added\nunder selected category',
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              return Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  // if (proScreen == false)
+                                                  Container(
+                                                    width: double.infinity,
+                                                    height: 283,
+                                                    child: ListView.builder(
+                                                      shrinkWrap: true,
+                                                      scrollDirection: Axis.horizontal,
+                                                      physics: const ScrollPhysics(),
+                                                      // gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                      //
+                                                      //   maxCrossAxisExtent: 200,
+                                                      //   childAspectRatio: 2/3.8 ,
+                                                      //   crossAxisSpacing: 8,
+                                                      //   mainAxisSpacing: 10,
+                                                      // ),
+                                                      itemCount: snapshot.data!.size,
+                                                      itemBuilder: (BuildContext context, int i) {
+                                                        var data = snapshot.data!.docs[i];
+                                                        print('datat details: ${data.data()}');
+                                                        var _price = int.parse(data['price']);
+                                                        // print('product: ${data['likeCount'][0]['isLike']}');
+                                                        String _formattedPrice = '₹ ${_format.format(_price)}';
+
+                                                        return ProductCard(
+                                                            data: data, formattedPrice: _formattedPrice);
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ))),
+                            ],
+                          ),
                       _loading
                           ? Container()
                           : InkWell(
@@ -2585,4 +2727,5 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     //   },
     // );
   }
+
 }

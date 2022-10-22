@@ -4,33 +4,40 @@ import 'package:haggle/screens/product_details_screen.dart';
 import 'package:haggle/screens/product_list.dart';
 import 'package:search_page/search_page.dart';
 import 'package:intl/intl.dart';
+import 'package:haggle/services/firebase_services.dart';
+
 
 class Products {
   final String description,
       category,
-      // shopName,
-      // material,
+      shopName,
+      material,
       productName,
-      // sellerType,
+      sellerType,
       price,
+     // productId,
       type;
   final num postedDate;
   final DocumentSnapshot document;
   Products(
       {required this.description,
       required this.category,
-      // required this.material,
+      required this.material,
       required this.postedDate,
       required this.productName,
-      // required this.sellerType,
-      // required this.shopName,
+      required this.sellerType,
+      required this.shopName,
+        // required this.productId,
       required this.price,
       required this.document,
       required this.type});
 }
 
 class SearchService {
+  final FirebaseService _service = FirebaseService();
+
   search({context, productsList, address, provider, sellerDetails}) {
+    print('product List: ${productsList}');
     showSearch(
       context: context,
       delegate: SearchPage<Products>(
@@ -42,21 +49,22 @@ class SearchService {
         onQueryUpdate: (s) => print(s),
         items: productsList,
         searchLabel: 'Search by Product/Shop/Brand/Category...',
-        suggestion: const SingleChildScrollView(
+        suggestion:  SingleChildScrollView(
           child: ProductList(
             proScreen: true,
+            productDetails: productsList
           ),
         ),
         failure: const Center(
-          child: Text('No products found :('),
+          child: Text('No products found !!'),
         ),
         filter: (product) => [
           product.description,
           product.category,
-          // product.material,
+          product.material,
           // product.sellerType,
           product.productName,
-          // product.shopName,
+          product.shopName,
           product.price,
         ],
         builder: (product) {
@@ -66,9 +74,18 @@ class SearchService {
 
           return InkWell(
             onTap: () {
-              provider.getProductDetails(product.document);
-              provider.getSellerDetails(sellerDetails);
-              Navigator.pushNamed(context, ProductDetailsScreen.id);
+              // provider.getProductDetails(product.document);
+              // provider.getSellerDetails(sellerDetails);
+              _service.getProductDetails(product.document['productId']).then((value) => {
+                provider.getProductDetails(product.document),
+                provider.getSellerDetails(sellerDetails),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>  ProductDetailsScreen(data: value.data(),)),
+                )
+                // Navigator.pushNamed(context,  MaterialPageRoute(builder: (context) => ProductDetailsScreen()), ProductDetailsScreen.id)
+              });
+              // Navigator.pushNamed(context, ProductDetailsScreen.id);
             },
             child: Container(
               height: 180,
@@ -81,7 +98,7 @@ class SearchService {
                     children: [
                       Container(
                         width: 140,
-                        height: 150,
+                        height: 130,
                         child: Image.network(product.document['images'][0]),
                       ),
                       const SizedBox(width: 10),
@@ -114,23 +131,23 @@ class SearchService {
                               const SizedBox(
                                 height: 5,
                               ),
-                              // Text(
-                              //   product.material,
-                              //   style: const TextStyle(
-                              //     color: Colors.black,
-                              //     fontSize: 12,
-                              //   ),
-                              // ),
+                              Text(
+                                product.material,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                ),
+                              ),
                               const SizedBox(
                                 height: 5,
                               ),
-                              // Text(
-                              //   product.sellerType,
-                              //   style: const TextStyle(
-                              //     color: Colors.black,
-                              //     fontSize: 12,
-                              //   ),
-                              // ),
+                              Text(
+                                product.sellerType,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                ),
+                              ),
                             ],
                           ),
                           Column(
@@ -142,7 +159,7 @@ class SearchService {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                               ),
                               Row(
-                                children: const [
+                                children:  [
                                   Icon(
                                     Icons.store_mall_directory_outlined,
                                     size: 15,
@@ -150,14 +167,14 @@ class SearchService {
                                   SizedBox(
                                     width: 2,
                                   ),
-                                  // Text(
-                                  //   product.shopName,
-                                  //   maxLines: 3,
-                                  //   style: const TextStyle(
-                                  //     color: Colors.black,
-                                  //     fontSize: 15,
-                                  //   ),
-                                  // ),
+                                  Text(
+                                    product.shopName,
+                                    maxLines: 3,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                    ),
+                                  ),
                                 ],
                               ),
                               const SizedBox(
