@@ -44,6 +44,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   bool _isLiked = false;
   var reviewsData = ['Excellent', 'Very Good', 'Good', 'Average', 'Poor'];
   var userIdList = [];
+  var data1 = [];
 
   // var data;
 
@@ -1726,6 +1727,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             Row(
                                               children: [
                                                 CircleAvatar(
+                                                  backgroundImage:  data1[0]['profile'] != null
+                                                    ? NetworkImage(
+                                                        data1[0]['profile'])
+                                                    : const NetworkImage('url'),
                                                   radius: 30,
                                                   backgroundColor:
                                                       Colors.grey[100],
@@ -1889,7 +1894,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 : Container(
                     child: const Center(
                       child: CircularProgressIndicator(
-                        color: Colors.orange,
+                        color: Colors.black,
                       ),
                     ),
                   );

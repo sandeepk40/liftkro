@@ -642,9 +642,9 @@ class _SellerJeansFormState extends State<SellerJeansForm> {
         galleryFile = await ImagePicker().getImage(
           source: ImageSource.gallery,
         );
-        if (galleryFile != null && galleryFile.path.length > 0) {
+        if (galleryFile != null && galleryFile.path.isNotEmpty) {
           try {
-            imageFile = new File(galleryFile.path);
+            imageFile = File(galleryFile.path);
             setState(() {
               previewImageVideo.add(imageFile);
               setState(() {});

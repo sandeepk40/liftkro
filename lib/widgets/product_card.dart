@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:haggle/provider/product_provider.dart';
 import 'package:haggle/screens/product_details_screen.dart';
 import 'package:haggle/services/firebase_services.dart';
-import 'package:haggle/widgets/likedcounter.dart';
 import 'package:intl/intl.dart';
 import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +24,7 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
-  final _format = NumberFormat("##,##,##0");
+  // final _format = NumberFormat("##,##,##0");
   final FirebaseService _service = FirebaseService();
   String address = '';
   late DocumentSnapshot sellerDetails;

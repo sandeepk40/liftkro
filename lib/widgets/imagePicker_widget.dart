@@ -62,12 +62,10 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
         await FirebaseStorage.instance.ref(imageName).putFile(file);
         downloadUrl =
             await FirebaseStorage.instance.ref(imageName).getDownloadURL();
-        if (downloadUrl != null) {
-          setState(() {
-            _image = null;
-            _provider.getImages(downloadUrl);
-          });
-        }
+        setState(() {
+          _image = null;
+          _provider.getImages(downloadUrl);
+        });
       } on FirebaseException catch (e, s) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

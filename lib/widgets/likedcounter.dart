@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:like_button/like_button.dart';
 
 class LikedButton extends StatefulWidget {
@@ -18,10 +17,10 @@ class _LikedButtonState extends State<LikedButton> {
   @override
   Widget build(BuildContext context) {
     const double size = 20;
-    final animationDuration = const Duration(milliseconds: 200);
+    const animationDuration = Duration(milliseconds: 200);
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
-          shape: StadiumBorder(),
+          shape: const StadiumBorder(),
           backgroundColor: Colors.white38,
           padding: EdgeInsets.zero),
       onPressed: () {

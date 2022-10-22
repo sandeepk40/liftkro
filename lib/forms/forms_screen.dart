@@ -1,18 +1,12 @@
 import 'dart:io';
-
-import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:galleryimage/galleryimage.dart';
 import 'package:haggle/forms/user_review_screen.dart';
 import 'package:haggle/services/firebase_services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/category_provider.dart';
-import '../widgets/imagePicker_widget.dart';
 
 class FormsScreen extends StatefulWidget {
   const FormsScreen({Key? key}) : super(key: key);
@@ -92,13 +86,12 @@ class _FormsScreenState extends State<FormsScreen> {
         ),
         elevation: 0,
         title: Text(
-                  '${_catProvider.selectedCategory} > ${_catProvider.selectedSubCategory}',
-                  style: const TextStyle(
-                    
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
+          '${_catProvider.selectedCategory} > ${_catProvider.selectedSubCategory}',
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -107,8 +100,6 @@ class _FormsScreenState extends State<FormsScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
-              
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
                 child: Container(
@@ -684,10 +675,10 @@ class _FormsScreenState extends State<FormsScreen> {
                 child: NeumorphicButton(
                     style: const NeumorphicStyle(
                       color: Colors.white,
-                       border: NeumorphicBorder(
-                            isEnabled: true,
-                            color: Colors.black,
-                          ),
+                      border: NeumorphicBorder(
+                        isEnabled: true,
+                        color: Colors.black,
+                      ),
                     ),
                     child: const Padding(
                       padding: EdgeInsets.all(4.0),
@@ -711,10 +702,10 @@ class _FormsScreenState extends State<FormsScreen> {
                 child: NeumorphicButton(
                     style: const NeumorphicStyle(
                       color: Colors.white,
-                       border: NeumorphicBorder(
-                            isEnabled: true,
-                            color: Colors.black,
-                          ),
+                      border: NeumorphicBorder(
+                        isEnabled: true,
+                        color: Colors.black,
+                      ),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
@@ -802,9 +793,9 @@ class _FormsScreenState extends State<FormsScreen> {
         galleryFile = await ImagePicker().getImage(
           source: ImageSource.gallery,
         );
-        if (galleryFile != null && galleryFile.path.length > 0) {
+        if (galleryFile != null && galleryFile.path.isNotEmpty) {
           try {
-            imageFile = new File(galleryFile.path);
+            imageFile = File(galleryFile.path);
             setState(() {
               previewImageVideo.add(imageFile);
               setState(() {});

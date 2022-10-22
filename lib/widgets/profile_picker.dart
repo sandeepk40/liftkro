@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:galleryimage/galleryimage.dart';
 import 'package:haggle/provider/category_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
