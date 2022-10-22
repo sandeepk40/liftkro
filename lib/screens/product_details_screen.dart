@@ -239,7 +239,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             color: Colors.black,
             onPressed: () {
               setState(() {
-                // _isLiked = !_isLiked;
+                _isLiked = !_isLiked;
               });
               // _service.updateFavourite(_isLiked, data.id, context);
             },
@@ -254,7 +254,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 setState(() {
                   _isLiked = !_isLiked;
                 });
-                _service.updateBookmark(_isLiked,widget.data['productId'], context);
+                // _service.updateFavourite(_isLiked, data.id, context);
               },
             ),
           ),
@@ -323,30 +323,33 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                     _index = i;
                                                   });
                                                 },
-                                                child: Container(
-                                                  height: 70,
-                                                  width: 60,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    border: Border.all(
-                                                      color: Colors.black38,
-                                                    ),
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                      Radius.circular(
-                                                        10,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(right: 4),
+                                                  child: Container(
+                                                    height: 70,
+                                                    width: 60,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      border: Border.all(
+                                                        color: Colors.black38,
+                                                      ),
+                                                      borderRadius:
+                                                          const BorderRadius.all(
+                                                        Radius.circular(
+                                                          10,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                      Radius.circular(
-                                                        10,
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          const BorderRadius.all(
+                                                        Radius.circular(
+                                                          10,
+                                                        ),
                                                       ),
+                                                      child: Image.network(widget
+                                                          .data['images'][i]),
                                                     ),
-                                                    child: Image.network(widget
-                                                        .data['images'][i]),
                                                   ),
                                                 ),
                                               );

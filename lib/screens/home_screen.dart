@@ -29,8 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var _catProvider = Provider.of<CategoryProvider>(context);
-    ScrollController _scrollController =  ScrollController();
+  var _catProvider = Provider.of<CategoryProvider>(context);
+  ScrollController _scrollController =  ScrollController();
   bool goToTop = false;
   bool isLast = false;
   @override
